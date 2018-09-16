@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.MainFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="10sp"
+            android:layout_weight="2.1"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5sp"
+                android:layout_weight="5"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="5sp">
+
+                <TextView
+                    android:id="@+id/status_mode_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/status_mode_textView"
+                    android:textColor="@color/colorYellow"
+                    android:textSize="14sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="5"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <TextView
+                        android:id="@+id/status_door"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="@string/status_door"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <TextView
+                        android:id="@+id/status_connection"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="@string/status_connection"
+                        android:textColor="@color/colorGreen"
+                        android:textSize="14sp" />
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="3.8"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="5sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="30sp"
+                    android:layout_marginEnd="30sp"
+                    android:layout_marginTop="30sp"
+                    android:layout_weight="0"
+                    android:orientation="vertical"
+                    android:weightSum="6">
+
+                    <ImageView
+                        android:id="@+id/status_door_panel1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8sp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite" />
+
+                    <ImageView
+                        android:id="@+id/status_door_panel2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8sp"
+                        android:layout_weight="1"
+                        android:background="@color/colorBlue" />
+
+                    <ImageView
+                        android:id="@+id/status_door_panel3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8sp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite" />
+
+                    <ImageView
+                        android:id="@+id/status_door_panel4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8sp"
+                        android:layout_weight="1"
+                        android:background="@color/colorBlue" />
+
+                    <ImageView
+                        android:id="@+id/status_door_panel5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="8sp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite" />
+
+                    <ImageView
+                        android:id="@+id/status_door_panel6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorBlue" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="10"
+                    android:background="@color/colorBlue" />
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="4.1"
+            android:orientation="vertical"
+            android:weightSum="9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5sp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_Distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Distance"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_Distance"
+                            android:layout_below="@+id/status_Distance"
+                            android:fontFamily="@font/roboto_medium_italic"
+                            android:text="@string/status_Distance_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_gpsTimeout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_gpsTimeOut"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_gpsTimeout"
+                            android:layout_below="@+id/status_gpsTimeout"
+                            android:fontFamily="@font/roboto_medium_italic"
+                            android:text="@string/status_gpsTimeOut_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_Speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Speed"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_Speed"
+                            android:layout_below="@+id/status_Speed"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Speed_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_LockTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_LockTime"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_LockTime"
+                            android:layout_below="@+id/status_LockTime"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_LockTime_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="3"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_Accuracy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Accuracy"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_Accuracy"
+                            android:layout_below="@+id/status_Accuracy"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Accuracy_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="40sp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:id="@+id/status_Lock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Lock"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/status_Lock"
+                            android:layout_below="@+id/status_Lock"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/status_Lock_Description"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

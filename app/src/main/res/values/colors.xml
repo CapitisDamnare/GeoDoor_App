@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#1E1D23</color>
+
+    <color name="colorPrimary">#25252F</color>
+    <color name="colorPrimaryDark">#25252F</color>
+    <color name="colorAccent">#FEFEFE</color>
+
+    <color name="colorWhite">#FEFEFE</color>
+    <color name="colorBlue">#4878C0</color>
+    <color name="colorYellow">#D9E421</color>
+    <color name="colorGreen">#0CD645</color>
+    <color name="noColor">#00FFFFFF</color>
+
+    <color name="tabTextColor">#80FEFEFE</color>
+    <color name="tabTextColorSelected">#FEFEFE</color>
+
+    <!-- Opacity Hex Values-->
+    <!--100% — FF-->
+    <!--95% — F2-->
+    <!--90% — E6-->
+    <!--85% — D9-->
+    <!--80% — CC-->
+    <!--75% — BF-->
+    <!--70% — B3-->
+    <!--65% — A6-->
+    <!--60% — 99-->
+    <!--55% — 8C-->
+    <!--50% — 80-->
+    <!--45% — 73-->
+    <!--40% — 66-->
+    <!--35% — 59-->
+    <!--30% — 4D-->
+    <!--25% — 40-->
+    <!--20% — 33-->
+    <!--15% — 26-->
+    <!--10% — 1A-->
+    <!--5% — 0D-->
+    <!--0% — 00-->
+</resources>

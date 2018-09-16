@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">GeoDoor</string>
+
+    <string name="back">Zurück</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">Über</string>
+    <string name="hide">Schließen</string>
+    <string name="exit">Alles Schließen</string>
+
+    <string name="status">Status</string>
+    <string name="controls">Steuerung</string>
+    <string name="name_part1">Geo</string>
+    <string name="name_part2">Door</string>
+    <string name="status_mode_textView">AUTOMATISCHER MODUS AKTIV</string>
+    <string name="status_door">TOR GESCHLOSSEN</string>
+    <string name="status_connection">CONNECTED</string>
+    <string name="status_Distance">160.42km</string>
+    <string name="status_Distance_Description">Distanz</string>
+    <string name="status_gpsTimeOut">10 sek</string>
+    <string name="status_gpsTimeOut_Description">GPS Timeout</string>
+    <string name="status_Speed">120 km/h</string>
+    <string name="status_Speed_Description">Geschwindigkeit</string>
+    <string name="status_Accuracy">12 m</string>
+    <string name="status_Accuracy_Description">Genauigkeit</string>
+    <string name="status_LockTime">60 sek</string>
+    <string name="status_LockTime_Description">Lock Timeout</string>
+    <string name="status_Lock">AUS</string>
+    <string name="status_Lock_Description">Sperre</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

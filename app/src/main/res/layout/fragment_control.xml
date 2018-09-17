@@ -35,12 +35,12 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/btn_door_auto"
+                    android:id="@+id/settings_btn_gate_auto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/btn_door_auto"
+                    android:text="@string/settings_btn_gate_auto"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
@@ -56,11 +56,12 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_gate_man"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_gate_man"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
@@ -87,11 +88,13 @@
                 app:cardCornerRadius="0dp"
                 app:cardElevation="5sp">
 
-                <Button
+                <TextView
+                    android:id="@+id/settings_txtView_mode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_yellow"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_txtView_mode"
+                    android:gravity="center"
                     android:textColor="@color/colorYellow"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -108,10 +111,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_door"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_door"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -140,10 +144,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_gate_isClosed"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_gate_isClosed"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -160,10 +165,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_gate_isOpen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_gate_isOpen"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -192,10 +198,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_open_visu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_open_visu"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -212,10 +219,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_homepage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_homepage"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -244,10 +252,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_log"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_log"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -264,10 +273,11 @@
                 app:cardElevation="5sp">
 
                 <Button
+                    android:id="@+id/settings_btn_error_report"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="Tor Auto"
+                    android:text="@string/settings_btn_error_report"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>

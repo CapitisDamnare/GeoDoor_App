@@ -35,12 +35,12 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_gate_auto"
+                    android:id="@+id/controls_btn_gate_auto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/settings_btn_gate_auto"
+                    android:text="@string/controls_btn_gate_auto"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
@@ -56,12 +56,12 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_gate_man"
+                    android:id="@+id/controls_btn_gate_man"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="@string/settings_btn_gate_man"
+                    android:text="@string/controls_btn_gate_man"
                     android:textColor="@color/colorWhite"
                     android:textSize="14sp" />
 
@@ -89,11 +89,11 @@
                 app:cardElevation="5sp">
 
                 <TextView
-                    android:id="@+id/settings_txtView_mode"
+                    android:id="@+id/controls_txtView_mode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_yellow"
-                    android:text="@string/settings_txtView_mode"
+                    android:text="@string/controls_txtView_mode"
                     android:gravity="center"
                     android:textColor="@color/colorYellow"
                     android:fontFamily="@font/roboto_medium"
@@ -111,11 +111,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_door"
+                    android:id="@+id/controls_btn_door"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_door"
+                    android:text="@string/controls_btn_door"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -144,11 +144,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_gate_isClosed"
+                    android:id="@+id/controls_btn_gate_isClosed"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_gate_isClosed"
+                    android:text="@string/controls_btn_gate_isClosed"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -165,11 +165,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_gate_isOpen"
+                    android:id="@+id/controls_btn_gate_isOpen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_gate_isOpen"
+                    android:text="@string/controls_btn_gate_isOpen"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -198,11 +198,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_open_visu"
+                    android:id="@+id/controls_open_visu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_open_visu"
+                    android:text="@string/controls_open_visu"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -219,11 +219,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_homepage"
+                    android:id="@+id/controls_btn_homepage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_homepage"
+                    android:text="@string/controls_btn_homepage"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -252,11 +252,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_log"
+                    android:id="@+id/controls_btn_log"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_log"
+                    android:text="@string/controls_btn_log"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>
@@ -273,11 +273,11 @@
                 app:cardElevation="5sp">
 
                 <Button
-                    android:id="@+id/settings_btn_error_report"
+                    android:id="@+id/controls_btn_error_report"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_blue"
-                    android:text="@string/settings_btn_error_report"
+                    android:text="@string/controls_btn_error_report"
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"/>

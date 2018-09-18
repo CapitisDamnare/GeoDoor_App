@@ -27,14 +27,28 @@
     <string name="status_Lock">AUS</string>
     <string name="status_Lock_Description">Sperre</string>
 
-    <string name="settings_btn_gate_auto">TOR ÖFFNEN AUTO</string>
-    <string name="settings_btn_gate_man">TOR ÖFFNEN MANUELL</string>
-    <string name="settings_txtView_mode">MAN MODUS AKTIV</string>
-    <string name="settings_btn_door">TÜR ÖFFNEN</string>
-    <string name="settings_btn_gate_isClosed">TORSTATUS GESCHLOSSEN</string>
-    <string name="settings_btn_gate_isOpen">TORSTATUS OFFEN</string>
-    <string name="settings_open_visu">GEODOOR VISU ÖFFNEN</string>
-    <string name="settings_btn_homepage">HOMEPAGE</string>
-    <string name="settings_btn_log">LOG</string>
-    <string name="settings_btn_error_report">ERROR REPORT SENDEN</string>
+    <string name="controls_btn_gate_auto">TOR ÖFFNEN AUTO</string>
+    <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
+    <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
+    <string name="controls_btn_door">TÜR ÖFFNEN</string>
+    <string name="controls_btn_gate_isClosed">TORSTATUS GESCHLOSSEN</string>
+    <string name="controls_btn_gate_isOpen">TORSTATUS OFFEN</string>
+    <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
+    <string name="controls_btn_homepage">HOMEPAGE</string>
+    <string name="controls_btn_log">LOG</string>
+    <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
+
+
+    <string name="settings_name">NAME</string>
+    <string name="settings_ip_address">IP ADRESSE</string>
+    <string name="settings_lat">LATITUDE</string>
+    <string name="settings_long">LONGITUDE</string>
+    <string name="settings_alt">ALTITUDE</string>
+    <string name="settings_radius">RADIUS\n[m]</string>
+    <string name="settings_name_hint">John Doe</string>
+    <string name="settings_ip_address_hint">10.10.10.20.11:1234</string>
+    <string name="settings_lat_hint">47.01234567</string>
+    <string name="settings_long_hint">14.01231122</string>
+    <string name="settings_alt_hint">424</string>
+    <string name="settings_radius_hint">200</string>
 </resources>

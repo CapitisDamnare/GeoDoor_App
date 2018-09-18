@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
+                        Log.d(TAG,String.valueOf(menuItem.getItemId()));
+
+                        //TODO: Change this doesn't work
                         switch (menuItem.getItemId()) {
                             case StaticValues.MENU_BACK:
                                 break;

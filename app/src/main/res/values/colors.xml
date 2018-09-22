@@ -8,6 +8,7 @@
 
     <color name="colorWhite">#FEFEFE</color>
     <color name="colorBlue">#4878C0</color>
+    <color name="colorDarkBlue">#00388B</color>
     <color name="colorYellow">#D9E421</color>
     <color name="colorGreen">#0CD645</color>
     <color name="noColor">#00FFFFFF</color>

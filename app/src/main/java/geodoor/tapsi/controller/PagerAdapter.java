@@ -1,15 +1,31 @@
-package geodoor.tapsi.geodoor_app.controller;
+package geodoor.tapsi.controller;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import geodoor.tapsi.geodoor_app.views.ControlFragment;
-import geodoor.tapsi.geodoor_app.views.MainFragment;
-import geodoor.tapsi.geodoor_app.views.SettingsFragment;
+import geodoor.tapsi.views.ControlFragment;
+import geodoor.tapsi.views.MainFragment;
+import geodoor.tapsi.views.SettingsFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
+
+    MainFragment mainFragment = new MainFragment();
+    ControlFragment controlFragment = new ControlFragment();
+    SettingsFragment settingsFragment = new SettingsFragment();
+
+    public MainFragment getMainFragment() {
+        return mainFragment;
+    }
+
+    public ControlFragment getControlFragment() {
+        return controlFragment;
+    }
+
+    public SettingsFragment getSettingsFragment() {
+        return settingsFragment;
+    }
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
@@ -19,11 +35,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new MainFragment();
+                return mainFragment;
             case 1:
-                return new ControlFragment();
+                return controlFragment;
             case 2:
-                return new SettingsFragment();
+                return settingsFragment;
         }
         return null;
     }

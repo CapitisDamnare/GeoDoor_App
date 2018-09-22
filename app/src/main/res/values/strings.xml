@@ -44,11 +44,12 @@
     <string name="settings_lat">LATITUDE</string>
     <string name="settings_long">LONGITUDE</string>
     <string name="settings_alt">ALTITUDE</string>
-    <string name="settings_radius">RADIUS\n[m]</string>
+    <string name="settings_radius">RADIUS [m]</string>
     <string name="settings_name_hint">John Doe</string>
     <string name="settings_ip_address_hint">10.10.10.20.11:1234</string>
     <string name="settings_lat_hint">47.01234567</string>
     <string name="settings_long_hint">14.01231122</string>
     <string name="settings_alt_hint">424</string>
     <string name="settings_radius_hint">200</string>
+    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
 </resources>

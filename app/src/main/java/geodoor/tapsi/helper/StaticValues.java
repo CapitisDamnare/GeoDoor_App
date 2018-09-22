@@ -1,4 +1,4 @@
-package geodoor.tapsi.geodoor_app.helper;
+package geodoor.tapsi.helper;
 
 public class StaticValues {
 

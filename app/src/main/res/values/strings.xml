@@ -11,6 +11,7 @@
     <string name="controls">Steuerung</string>
     <string name="name_part1">Geo</string>
     <string name="name_part2">Door</string>
+
     <string name="status_mode_textView">AUTOMATISCHER MODUS AKTIV</string>
     <string name="status_door">TOR GESCHLOSSEN</string>
     <string name="status_connection">CONNECTED</string>
@@ -37,7 +38,7 @@
     <string name="controls_btn_homepage">HOMEPAGE</string>
     <string name="controls_btn_log">LOG</string>
     <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
-
+    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
 
     <string name="settings_name">NAME</string>
     <string name="settings_ip_address">IP ADRESSE</string>
@@ -51,5 +52,10 @@
     <string name="settings_long_hint">14.01231122</string>
     <string name="settings_alt_hint">424</string>
     <string name="settings_radius_hint">200</string>
-    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_message1">Location permission: Necessary to get gps data in auto mode.</string>
+    <string name="dialog_message2">Phone permission: Necessary to get an unique sim id for the GeoDoorServer.</string>
+    <string name="dialog_title">Permission Warning:</string>
+    <string name="dialog_close">CLOSE</string>
 </resources>

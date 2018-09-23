@@ -40,14 +40,14 @@ public class NavigationMenuController {
                         menuItem.setChecked(true);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
-                        String title =  menuItem.getTitle().toString();
+                        String title = menuItem.getTitle().toString();
 
                         if (title.equals(mainActivity.getResources().getString(R.string.back))) {
                             pagerAdapter.getMainFragment().doorAnimationOpen();
                             return true;
                         }
 
-                        if (title.equals(mainActivity.getResources().getString(R.string.settings))){
+                        if (title.equals(mainActivity.getResources().getString(R.string.settings))) {
                             tabController.getViewPager().setCurrentItem(2);
                             return true;
                         }

@@ -42,13 +42,13 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public  void doorAnimationOpen() {
+    public void doorAnimationOpen() {
         doorAnimation1 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_open);
         final ImageView v1 = getView().findViewById(R.id.status_door_panel6);
         v1.startAnimation(doorAnimation1);
 
         doorAnimation2 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_open);
-        final ImageView v2 =  getView().findViewById(R.id.status_door_panel5);
+        final ImageView v2 = getView().findViewById(R.id.status_door_panel5);
 
         v2.postDelayed(new Runnable() {
             @Override

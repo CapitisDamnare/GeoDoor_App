@@ -1,59 +1,59 @@
 <resources>
-    <string name="app_name">GeoDoor</string>
+    <string name="app_name" translatable="false">GeoDoor</string>
 
-    <string name="back">Zurück</string>
-    <string name="settings">Einstellungen</string>
-    <string name="about">Über</string>
-    <string name="hide">Schließen</string>
-    <string name="exit">Alles Schließen</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="hide">Hide</string>
+    <string name="exit">Close All</string>
 
-    <string name="status">Status</string>
-    <string name="controls">Steuerung</string>
-    <string name="name_part1">Geo</string>
-    <string name="name_part2">Door</string>
+    <string name="status">State</string>
+    <string name="controls">Controls</string>
+    <string name="name_part1" translatable="false">Geo</string>
+    <string name="name_part2" translatable="false">Door</string>
 
-    <string name="status_mode_textView">AUTOMATISCHER MODUS AKTIV</string>
-    <string name="status_door">TOR GESCHLOSSEN</string>
+    <string name="status_mode_textView">AUTOMATIC MODE ACTIVE</string>
+    <string name="status_door">DOOR CLOSED</string>
     <string name="status_connection">CONNECTED</string>
-    <string name="status_Distance">160.42km</string>
-    <string name="status_Distance_Description">Distanz</string>
-    <string name="status_gpsTimeOut">10 sek</string>
+    <string name="status_Distance" translatable="false">160.42km</string>
+    <string name="status_Distance_Description">Distance</string>
+    <string name="status_gpsTimeOut" translatable="false">10 sek</string>
     <string name="status_gpsTimeOut_Description">GPS Timeout</string>
-    <string name="status_Speed">120 km/h</string>
-    <string name="status_Speed_Description">Geschwindigkeit</string>
-    <string name="status_Accuracy">12 m</string>
-    <string name="status_Accuracy_Description">Genauigkeit</string>
-    <string name="status_LockTime">60 sek</string>
+    <string name="status_Speed" translatable="false">120 km/h</string>
+    <string name="status_Speed_Description">Speed</string>
+    <string name="status_Accuracy" translatable="false">12 m</string>
+    <string name="status_Accuracy_Description">Precision</string>
+    <string name="status_LockTime" translatable="false">60 sek</string>
     <string name="status_LockTime_Description">Lock Timeout</string>
-    <string name="status_Lock">AUS</string>
-    <string name="status_Lock_Description">Sperre</string>
+    <string name="status_Lock">OFF</string>
+    <string name="status_Lock_Description">LOCK</string>
 
-    <string name="controls_btn_gate_auto">TOR ÖFFNEN AUTO</string>
-    <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
-    <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
-    <string name="controls_btn_door">TÜR ÖFFNEN</string>
-    <string name="controls_btn_gate_isClosed">TORSTATUS GESCHLOSSEN</string>
-    <string name="controls_btn_gate_isOpen">TORSTATUS OFFEN</string>
-    <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
-    <string name="controls_btn_homepage">HOMEPAGE</string>
-    <string name="controls_btn_log">LOG</string>
-    <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
-    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
+    <string name="controls_btn_gate_auto">OPEN DOOR AUTO</string>
+    <string name="controls_btn_gate_man">OPEN DOOR MAN</string>
+    <string name="controls_txtView_mode">MAN MODE ACTIV</string>
+    <string name="controls_btn_door">OPEN DOOR</string>
+    <string name="controls_btn_gate_isClosed">GATE STATE CLOSED</string>
+    <string name="controls_btn_gate_isOpen">GATE STATE OPEN</string>
+    <string name="controls_open_visu">OPEN GEODOOR VISU</string>
+    <string name="controls_btn_homepage" translatable="false">HOMEPAGE</string>
+    <string name="controls_btn_log" translatable="false">LOG</string>
+    <string name="controls_btn_error_report">SEND ERROR REPORT</string>
+    <string name="controls_btn_mode">MAN MODE ACTIVE</string>
 
-    <string name="settings_name">NAME</string>
-    <string name="settings_ip_address">IP ADRESSE</string>
-    <string name="settings_lat">LATITUDE</string>
-    <string name="settings_long">LONGITUDE</string>
-    <string name="settings_alt">ALTITUDE</string>
-    <string name="settings_radius">RADIUS [m]</string>
-    <string name="settings_name_hint">John Doe</string>
-    <string name="settings_ip_address_hint">10.10.10.20.11:1234</string>
-    <string name="settings_lat_hint">47.01234567</string>
-    <string name="settings_long_hint">14.01231122</string>
-    <string name="settings_alt_hint">424</string>
-    <string name="settings_radius_hint">200</string>
+    <string name="settings_name" translatable="false">NAME</string>
+    <string name="settings_ip_address">IP ADDRESS</string>
+    <string name="settings_lat" translatable="false">LATITUDE</string>
+    <string name="settings_long" translatable="false">LONGITUDE</string>
+    <string name="settings_alt" translatable="false">ALTITUDE</string>
+    <string name="settings_radius" translatable="false">RADIUS [m]</string>
+    <string name="settings_name_hint" translatable="false">John Doe</string>
+    <string name="settings_ip_address_hint" translatable="false">10.10.10.20.11:1234</string>
+    <string name="settings_lat_hint" translatable="false">47.01234567</string>
+    <string name="settings_long_hint" translatable="false">14.01231122</string>
+    <string name="settings_alt_hint" translatable="false">424</string>
+    <string name="settings_radius_hint" translatable="false">200</string>
 
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_ok" translatable="false">OK</string>
     <string name="dialog_message1">Location permission: Necessary to get gps data in auto mode.</string>
     <string name="dialog_message2">Phone permission: Necessary to get an unique sim id for the GeoDoorServer.</string>
     <string name="dialog_title">Permission Warning:</string>

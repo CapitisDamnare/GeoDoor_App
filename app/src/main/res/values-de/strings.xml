@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Zurück</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">Über</string>
+    <string name="hide">Verbergen</string>
+    <string name="exit">Alles Schließen</string>
+    <string name="status">Status</string>
+    <string name="controls">Steuerung</string>
+    <string name="status_mode_textView">AUTOMATISCHER MODUS AKTIV</string>
+    <string name="status_door">TOR GESCHLOSSEN</string>
+    <string name="status_connection">VERBUNDEN</string>
+    <string name="status_Distance_Description">Distanz</string>
+    <string name="status_gpsTimeOut_Description">GPS Zeitsperre</string>
+    <string name="status_Speed_Description">Geschwindigkeit</string>
+    <string name="status_Accuracy_Description">Genauigkeit</string>
+    <string name="status_LockTime_Description">Zeitsperre</string>
+    <string name="status_Lock">AUS</string>
+    <string name="status_Lock_Description">Sperre</string>
+    <string name="controls_btn_gate_auto">TOR ÖFFNEN AUTO</string>
+    <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
+    <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
+    <string name="controls_btn_door">TÜR ÖFFNEN</string>
+    <string name="controls_btn_gate_isClosed">TORSTATUS GESCHLOSSEN</string>
+    <string name="controls_btn_gate_isOpen">TORSTATUS OFFEN</string>
+    <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
+    <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
+    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
+    <string name="settings_ip_address">IP ADRESSE</string>
+    <string name="dialog_close">CLOSE</string>
+    <string name="dialog_title">Berechtigungs Warnung:</string>
+    <string name="dialog_message2">Telefon Berechtigung: Notwendig um eine eindeutige id für den GeoDoorServer zu erhalten.</string>
+    <string name="dialog_message1">GPS Berechtigung: Notwendig um gps Daten für den auto modus zu bekommen.</string>
+</resources>

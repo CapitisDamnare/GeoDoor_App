@@ -1,9 +1,15 @@
 package geodoor.tapsi;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -16,16 +22,20 @@ import geodoor.tapsi.controller.NavigationMenuController;
 import geodoor.tapsi.controller.TabController;
 import geodoor.tapsi.geodoor_app.R;
 import geodoor.tapsi.geodoor_app.WarningFragmentDialog;
+import geodoor.tapsi.logic.Constants;
+import geodoor.tapsi.logic.service.MyService;
 
 public class MainActivity extends AppCompatActivity implements WarningFragmentDialog.Communicator {
 
     private TabController tabController;
     private NavigationMenuController navigationMenuController;
 
+    MyService myService;
+
     // Permission stuff
     public static final int MY_PERMISSIONS_REQUESTS = 99;
 
-    private String TAG = "tapsi";
+    private String TAG = "tapsi.main";
 
     public MainActivity getActivity() {
         return this;
@@ -41,6 +51,26 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
 
         mHandlerTask.run();
     }
+
+    private void startForegroundService() {
+        Intent startIntent = new Intent(this, MyService.class);
+        startIntent.setAction(Constants.ACTION.SOCKET_START);
+        startService(startIntent);
+        bindService(startIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        Log.d(TAG, "startForegroundService");
+    }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MyService.MyBinder sBinder = (MyService.MyBinder) service;
+            myService = sBinder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -69,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
                             == PackageManager.PERMISSION_GRANTED) {
                     }
                     Log.d(TAG, "Permission granted 1");
-                    //startForegroundService();
+                    startForegroundService();
 //                    permissionGranted = true;
 
                 } else {
@@ -106,12 +136,12 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
                                 Manifest.permission.READ_PHONE_STATE)
                         == PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "Permission granted 2");
-//                    startForegroundService();
+                    startForegroundService();
 //                    permissionGranted = true;
                 }
             } else {
                 Log.d(TAG, "Permission granted 3");
-//                startForegroundService();
+                startForegroundService();
 //                permissionGranted = true;
             }
         }

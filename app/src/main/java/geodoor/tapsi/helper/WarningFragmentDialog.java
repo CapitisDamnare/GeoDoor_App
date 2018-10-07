@@ -1,4 +1,4 @@
-package geodoor.tapsi.geodoor_app;
+package geodoor.tapsi.helper;
 
 
 import android.app.DialogFragment;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import geodoor.tapsi.geodoor_app.R;
 
 
 /**

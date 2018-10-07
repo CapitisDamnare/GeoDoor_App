@@ -1,7 +1,6 @@
 package geodoor.tapsi;
 
 import android.Manifest;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import geodoor.tapsi.controller.NavigationMenuController;
 import geodoor.tapsi.controller.TabController;
 import geodoor.tapsi.geodoor_app.R;
-import geodoor.tapsi.geodoor_app.WarningFragmentDialog;
+import geodoor.tapsi.helper.WarningFragmentDialog;
 import geodoor.tapsi.logic.Constants;
 import geodoor.tapsi.logic.service.MyService;
 
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
 
     private TabController tabController;
     private NavigationMenuController navigationMenuController;
+    private static MainActivity mainActivity;
 
     MyService myService;
 
@@ -41,9 +42,14 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
         return this;
     }
 
+    public static MainActivity getStaticActivity() {
+        return mainActivity;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
         setContentView(R.layout.activity_main);
 
         tabController = new TabController(this);
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
         Log.d(TAG, "startForegroundService");
     }
 
-    private ServiceConnection serviceConnection = new ServiceConnection() {
+    public ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MyService.MyBinder sBinder = (MyService.MyBinder) service;
@@ -135,14 +141,10 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
                         ContextCompat.checkSelfPermission(getApplicationContext(),
                                 Manifest.permission.READ_PHONE_STATE)
                         == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "Permission granted 2");
                     startForegroundService();
-//                    permissionGranted = true;
                 }
             } else {
-                Log.d(TAG, "Permission granted 3");
                 startForegroundService();
-//                permissionGranted = true;
             }
         }
     };
@@ -172,5 +174,11 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
             return false;
         }
         return true;
+    }
+
+    public void sendOutBroadcast(String event, String name, String value) {
+        Intent intent = new Intent(event);
+        intent.putExtra(name, value);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

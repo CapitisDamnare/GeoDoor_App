@@ -1,6 +1,8 @@
 package geodoor.tapsi.controller;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
@@ -9,6 +11,8 @@ import android.view.MenuItem;
 
 import geodoor.tapsi.MainActivity;
 import geodoor.tapsi.geodoor_app.R;
+import geodoor.tapsi.logic.Constants;
+import geodoor.tapsi.logic.service.MyService;
 
 public class NavigationMenuController {
 
@@ -54,6 +58,7 @@ public class NavigationMenuController {
 
                         if (title.equals(mainActivity.getResources().getString(R.string.about))) {
                             pagerAdapter.getMainFragment().doorAnimationClose();
+                            sendOutBroadcast(Constants.BROADCAST.EVENT_TOSOCKET, Constants.BROADCAST.NAME_OPENGATE, "true");
                             return true;
                         }
 
@@ -63,6 +68,10 @@ public class NavigationMenuController {
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.exit))) {
+                            Intent stopIntent = new Intent(mainActivity, MyService.class);
+                            stopIntent.setAction(Constants.ACTION.SOCKET_STOP);
+                            mainActivity.startService(stopIntent);
+                            mainActivity.unbindService(mainActivity.serviceConnection);
                             closeApplication();
                             return true;
                         }
@@ -116,5 +125,11 @@ public class NavigationMenuController {
 
     private void hideApplication() {
         mainActivity.moveTaskToBack(false);
+    }
+
+    public void sendOutBroadcast(String event, String name, String value) {
+        Intent intent = new Intent(event);
+        intent.putExtra(name, value);
+        LocalBroadcastManager.getInstance(mainActivity).sendBroadcast(intent);
     }
 }

@@ -5,9 +5,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -20,11 +22,17 @@ import geodoor.tapsi.geodoor_app.R;
 import geodoor.tapsi.logic.Constants;
 
 import static geodoor.tapsi.App.CHANNEL_ID;
+import static geodoor.tapsi.App.NOTIFY_ID;
 
 public class MyService extends Service {
 
     private final IBinder binder = new MyBinder();
     private String TAG = "tapsi.service";
+    private NotificationManager nm;
+    NotificationCompat.Builder builder;
+
+    GPSService GPSService;
+    boolean isGPSServiceBound = false;
 
     @Override
     public void onCreate() {
@@ -36,13 +44,18 @@ public class MyService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Service x");
+            //nm.notify(Constants.NOTIFICATION_ID.SOCKET_SERVICE_TEMP, builder.build());
         }
     };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Service 2");
         if (intent.getAction().equals(Constants.ACTION.SOCKET_START)) {
+
+            Intent startGPSIntent = new Intent(this, GPSService.class);
+            startGPSIntent.setAction(Constants.ACTION.GPS_START);
+            startService(startGPSIntent);
+            bindService(startGPSIntent, myServiceConnection, Context.BIND_AUTO_CREATE);
 
             Intent notificationIntent = new Intent(this, MainActivity.class);
             notificationIntent.setAction(Constants.ACTION.SOCKET_MAIN);
@@ -69,17 +82,45 @@ public class MyService extends Service {
 
             startForeground(Constants.NOTIFICATION_ID.SOCKET_SERVICE_FOREGROUND, notification);
 
-            //buildNotification();
-            Log.d(TAG, "Service 2");
-        }  else if (intent.getAction().equals(Constants.ACTION.SOCKET_STOP))
-                stopForegroundService();
+            buildNotification();
+        } else if (intent.getAction().equals(Constants.ACTION.SOCKET_STOP))
+            stopForegroundService();
         return Service.START_NOT_STICKY;
     }
 
-        public void stopForegroundService() {
-            stopForeground(true);
-            stopSelf();
+    public void stopForegroundService() {
+        Intent stopGPSIntent = new Intent(MyService.this, GPSService.class);
+        stopGPSIntent.setAction(Constants.ACTION.GPS_STOP);
+        startService(stopGPSIntent);
+        if (isGPSServiceBound)
+            unbindService(myServiceConnection);
+        else
+            Log.i(TAG, "GPSService wasn't bound");
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+
+        stopForeground(true);
+        stopSelf();
+    }
+
+    //GPS Service
+    private ServiceConnection myServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            GPSService.MyLocalBinder binder = (GPSService.MyLocalBinder) service;
+            GPSService = binder.getService();
+            isGPSServiceBound = true;
+            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSCONNECTED, "true");
         }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSDISCONNECTED, "true");
+            isGPSServiceBound = false;
+            GPSService = null;
+        }
+    };
 
     @Nullable
     @Override
@@ -93,20 +134,21 @@ public class MyService extends Service {
         }
     }
 
-//    private void buildNotification() {
-//        // Setup a notification
-//        builder = new NotificationCompat.Builder(getApplication().getBaseContext(), "M_CH_ID");
-//        builder.setAutoCancel(true);
-//
-//        builder.setSmallIcon(R.mipmap.ic_launcher);
-//        builder.setWhen(System.currentTimeMillis());
-//        builder.setContentTitle("Opened door automatically");
-//        builder.setContentText("Click to launch App");
-//        builder.setShowWhen(true);
-//
-//        Intent intent = new Intent(this, MainActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        builder.setContentIntent(pendingIntent);
-//        nm = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
-//    }
+    private void buildNotification() {
+        // Setup a notification
+        builder = new NotificationCompat.Builder(this, NOTIFY_ID);
+        builder = new NotificationCompat.Builder(getApplication().getBaseContext(), "M_CH_ID");
+        builder.setAutoCancel(true);
+
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setWhen(System.currentTimeMillis());
+        builder.setContentTitle("Opened door automatically");
+        builder.setContentText("Click to launch App");
+        builder.setShowWhen(true);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        nm = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
+    }
 }

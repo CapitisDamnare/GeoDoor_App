@@ -204,8 +204,8 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
             for (Location location : locationResult.getLocations()) {
                 mLastLocation = location;
                 float distance = mLastLocation.distanceTo(homeLocation);
-                GPXFileWriter.ActivityData activityData = new GPXFileWriter.ActivityData(System.currentTimeMillis(), location);
-                gpxFileWriter.writeTrackPoints(activityData);
+                //GPXFileWriter.ActivityData activityData = new GPXFileWriter.ActivityData(System.currentTimeMillis(), location);
+                //gpxFileWriter.writeTrackPoints(activityData);
 
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(getStringValue(distance, 0));

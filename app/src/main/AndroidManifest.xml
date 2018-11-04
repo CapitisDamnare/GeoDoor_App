@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="geodoor.tapsi.geodoor_app">
+    package="tapsi.geodoor.geodoor_app">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
-        android:name="geodoor.tapsi.App"
+        android:name="tapsi.geodoor.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,15 +29,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="geodoor.tapsi.MainActivity">
+        <activity android:name="tapsi.geodoor.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="geodoor.tapsi.logic.service.MyService"/>
-        <service android:name="geodoor.tapsi.logic.service.GPSService"/>
+        <service android:name="tapsi.geodoor.logic.service.MyService"/>
+        <service android:name="tapsi.geodoor.logic.service.GPSService"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

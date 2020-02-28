@@ -32,8 +32,6 @@
     <string name="controls_btn_gate_man">OPEN DOOR MAN</string>
     <string name="controls_txtView_mode">MAN MODE ACTIV</string>
     <string name="controls_btn_door">OPEN DOOR</string>
-    <string name="controls_btn_gate_isClosed">GATE STATE CLOSED</string>
-    <string name="controls_btn_gate_isOpen">GATE STATE OPEN</string>
     <string name="controls_open_visu">OPEN GEODOOR VISU</string>
     <string name="controls_btn_homepage" translatable="false">HOMEPAGE</string>
     <string name="controls_btn_log" translatable="false">LOG</string>
@@ -58,4 +56,6 @@
     <string name="dialog_message2">Phone permission: Necessary to get an unique sim id for the GeoDoorServer.</string>
     <string name="dialog_title">Permission Warning:</string>
     <string name="dialog_close">CLOSE</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_cancel">Cancel</string>
 </resources>

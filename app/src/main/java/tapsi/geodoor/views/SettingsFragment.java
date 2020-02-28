@@ -54,13 +54,14 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (mListener != null)
+        if (mListener != null) {
             mListener.onSettingsCreated();
+        }
         editText = getView().findViewById(R.id.textEditName);
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
+                if (!hasFocus && mListener != null) {
                     mListener.onNameChanged(editText.getText().toString());
                 }
             }

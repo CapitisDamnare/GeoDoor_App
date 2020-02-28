@@ -1,6 +1,9 @@
 package tapsi.geodoor.logic.service;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,11 +14,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,11 +35,15 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import tapsi.geodoor.MainActivity;
+import tapsi.geodoor.geodoor_app.R;
 import tapsi.geodoor.logic.Constants;
+import tapsi.geodoor.logic.data.Config;
+
+import static tapsi.geodoor.App.CHANNEL_ID;
+import static tapsi.geodoor.App.NOTIFY_ID;
 
 public class GPSService extends Service implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -48,34 +57,35 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
     private LocationRequest mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
 
+    private NotificationManager nm;
+    NotificationCompat.Builder builder;
+
     // Servicebinder stuff
     private final IBinder binder = new MyLocalBinder();
 
-    Location homeLocation;
+    private Location homeLocation;
     float radius;
 
     private final SimpleDateFormat POINT_DATE_FORMATTER = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
 
-    private GPXFileWriter gpxFileWriter;
-    private File file;
+    //private GPXFileWriter gpxFileWriter;
+    //private File file;
 
     public GPSService() {
-        homeLocation = new Location("tapsi");
-        homeLocation.setLatitude(47.04765827);
-        homeLocation.setLongitude(15.07451153);
-        homeLocation.setAltitude(474);
-        radius = 200;
+//        homeLocation = new Location("tapsi");
+//        homeLocation.setLatitude(47.04765827);
+//        homeLocation.setLongitude(15.07451153);
+//        homeLocation.setAltitude(474);
+//        radius = 200;
 
 
-        if (isExternalStorageWritable())
-            Log.d(TAG, "externalStorageIsWritable");
-        else
+        if (!isExternalStorageWritable())
             return;
 
-        file = new File(getPrivateAlbumStorageDir("Files"), POINT_DATE_FORMATTER.format(new Date(System.currentTimeMillis())));
-        gpxFileWriter = new GPXFileWriter(file);
-        gpxFileWriter.openGpxFile();
+        //file = new File(getPrivateAlbumStorageDir("Files"), POINT_DATE_FORMATTER.format(new Date(System.currentTimeMillis())));
+        //gpxFileWriter = new GPXFileWriter(file);
+        //gpxFileWriter.openGpxFile();
     }
 
     public File getPrivateAlbumStorageDir(String albumName) {
@@ -101,6 +111,46 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
         } else if (intent.getAction().equals(Constants.ACTION.GPS_START)) {
+
+            Bundle bundle = intent.getExtras();
+
+            String longitude = bundle.getString("Longitude");
+            String latitude = bundle.getString("Latitude");
+            String altitude = bundle.getString("Altitude");
+
+            homeLocation = new Location("tapsi");
+            homeLocation.setLatitude(Double.valueOf(longitude));
+            homeLocation.setLongitude(Double.valueOf(latitude));
+            homeLocation.setAltitude(Double.valueOf(altitude));
+            radius = bundle.getInt("Radius");
+
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            notificationIntent.setAction(Constants.ACTION.SOCKET_MAIN);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                    notificationIntent, 0);
+
+            Intent stopIntent = new Intent(this, MyService.class);
+            stopIntent.setAction(Constants.ACTION.SOCKET_STOP);
+            PendingIntent sstopIntent = PendingIntent.getService(this, 0,
+                    stopIntent, 0);
+
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, CHANNEL_ID);
+            Notification notification = notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("GeoDoor GPS & Socket Service activated")
+                    .setContentText("Click to launch App")
+                    .setTicker("GeoDoor")
+                    .addAction(android.R.drawable.ic_media_next, "Stop Service", sstopIntent)
+                    .setPriority(Notification.PRIORITY_MAX)
+                    .setContentIntent(pendingIntent)
+                    .setShowWhen(false)
+                    .setOngoing(true).build();
+
+            startForeground(Constants.NOTIFICATION_ID.SOCKET_SERVICE_FOREGROUND, notification);
+
+            buildNotification();
+
             if (getAPIClient() == null) {
                 buildGoogleApiClient();
             } else {
@@ -109,9 +159,27 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
         } else if (intent.getAction().equals(Constants.ACTION.GPS_STOP)) {
             stopGPS();
             stopSelf();
-            gpxFileWriter.closeGPXFile();
+            //gpxFileWriter.closeGPXFile();
         }
         return Service.START_NOT_STICKY;
+    }
+
+    private void buildNotification() {
+        // Setup a notification
+        builder = new NotificationCompat.Builder(this, NOTIFY_ID);
+        builder = new NotificationCompat.Builder(getApplication().getBaseContext(), "M_CH_ID");
+        builder.setAutoCancel(true);
+
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setWhen(System.currentTimeMillis());
+        builder.setContentTitle("Opened door automatically");
+        builder.setContentText("Click to launch App");
+        builder.setShowWhen(true);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        nm = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
     }
 
     @Nullable
@@ -121,8 +189,8 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
     }
 
     // Binder stuff to get the parent class (the actual service class)
-    class MyLocalBinder extends Binder {
-        GPSService getService() {
+    public class MyLocalBinder extends Binder {
+        public GPSService getService() {
             return GPSService.this;
         }
     }
@@ -153,7 +221,7 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
         mLocationRequest.setInterval(300);
         mLocationRequest.setFastestInterval(300);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        //startGPS();
+        startGPS();
     }
 
     @Override
@@ -182,6 +250,8 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
     }
 
     public void startGPS() {
+        Log.d(TAG, "Start Service");
+        // TODO: Dont start before the settings
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -216,7 +286,6 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
                     if (location.getAccuracy() <= 20.00) {
                         sendOutBroadcast(Constants.BROADCAST.EVENT_TOSOCKET, Constants.BROADCAST.NAME_OPENGATE, "true");
                         sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_OPENGATE, "true");
-                        Log.d(TAG, "NAME_OPENGATE");
                     }
                 }
             }

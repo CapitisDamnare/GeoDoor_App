@@ -46,8 +46,6 @@ public class ControlFragment extends Fragment {
         Button btn_gate_man = getView().findViewById(R.id.controls_btn_gate_man);
         Button btn_mode = getView().findViewById(R.id.controls_btn_mode);
         Button btn_door = getView().findViewById(R.id.controls_btn_door);
-        Button btn_gate_isOpen = getView().findViewById(R.id.controls_btn_gate_isOpen);
-        Button btn_gate_isClosed = getView().findViewById(R.id.controls_btn_gate_isClosed);
         Button btn_open_visu = getView().findViewById(R.id.controls_btn_open_visu);
         Button btn_homepage = getView().findViewById(R.id.controls_btn_homepage);
         Button btn_log = getView().findViewById(R.id.controls_btn_log);
@@ -79,22 +77,6 @@ public class ControlFragment extends Fragment {
         });
 
         btn_door.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btn_gate_isOpen.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btn_gate_isClosed.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -162,24 +144,6 @@ public class ControlFragment extends Fragment {
         });
 
         btn_door.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                startAnimation(view, motionEvent);
-                return false;
-            }
-
-        });
-
-        btn_gate_isOpen.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                startAnimation(view, motionEvent);
-                return false;
-            }
-
-        });
-
-        btn_gate_isClosed.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 startAnimation(view, motionEvent);

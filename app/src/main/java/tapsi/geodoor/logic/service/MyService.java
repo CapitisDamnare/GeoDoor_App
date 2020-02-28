@@ -24,6 +24,7 @@ import tapsi.geodoor.logic.Constants;
 import static tapsi.geodoor.App.CHANNEL_ID;
 import static tapsi.geodoor.App.NOTIFY_ID;
 
+//TODO: Clean Code
 public class MyService extends Service {
 
     private final IBinder binder = new MyBinder();
@@ -31,8 +32,8 @@ public class MyService extends Service {
     private NotificationManager nm;
     NotificationCompat.Builder builder;
 
-    GPSService GPSService;
-    boolean isGPSServiceBound = false;
+    //GPSService GPSService;
+    //boolean isGPSServiceBound = false;
 
     @Override
     public void onCreate() {
@@ -43,7 +44,7 @@ public class MyService extends Service {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d(TAG, "Service x");
+            //Log.d(TAG, "Open Gate");
             //nm.notify(Constants.NOTIFICATION_ID.SOCKET_SERVICE_TEMP, builder.build());
         }
     };
@@ -92,10 +93,10 @@ public class MyService extends Service {
         Intent stopGPSIntent = new Intent(MyService.this, GPSService.class);
         stopGPSIntent.setAction(Constants.ACTION.GPS_STOP);
         startService(stopGPSIntent);
-        if (isGPSServiceBound)
-            unbindService(myServiceConnection);
-        else
-            Log.i(TAG, "GPSService wasn't bound");
+//        if (isGPSServiceBound)
+//            unbindService(myServiceConnection);
+//        else
+//            Log.i(TAG, "GPSService wasn't bound");
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
 
@@ -104,23 +105,23 @@ public class MyService extends Service {
     }
 
     //GPS Service
-    private ServiceConnection myServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            GPSService.MyLocalBinder binder = (GPSService.MyLocalBinder) service;
-            GPSService = binder.getService();
-            isGPSServiceBound = true;
-            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSCONNECTED, "true");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSDISCONNECTED, "true");
-            isGPSServiceBound = false;
-            GPSService = null;
-        }
-    };
+//    private ServiceConnection myServiceConnection = new ServiceConnection() {
+//
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            GPSService.MyLocalBinder binder = (GPSService.MyLocalBinder) service;
+//            GPSService = binder.getService();
+//            isGPSServiceBound = true;
+//            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSCONNECTED, "true");
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOMAIN, Constants.BROADCAST.NAME_GPSDISCONNECTED, "true");
+//            isGPSServiceBound = false;
+//            GPSService = null;
+//        }
+//    };
 
     @Nullable
     @Override

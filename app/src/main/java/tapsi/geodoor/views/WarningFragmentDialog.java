@@ -1,4 +1,4 @@
-package tapsi.geodoor.global;
+package tapsi.geodoor.views;
 
 
 import android.app.DialogFragment;

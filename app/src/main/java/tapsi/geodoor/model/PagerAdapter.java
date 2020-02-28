@@ -1,10 +1,13 @@
 package tapsi.geodoor.model;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.views.ControlFragment;
 import tapsi.geodoor.views.MainFragment;
 import tapsi.geodoor.views.SettingsFragment;
@@ -38,8 +41,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
         mainFragment = new MainFragment();
         controlFragment = new ControlFragment();
         settingsFragment = new SettingsFragment();
-
-        settingsFragment.setListener(tabViewModel);
     }
 
     @Override

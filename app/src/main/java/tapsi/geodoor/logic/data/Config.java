@@ -85,4 +85,9 @@ public class Config {
         this.altitude = altitude;
         this.radius = radius;
     }
+
+    public Config()
+    {
+
+    }
 }

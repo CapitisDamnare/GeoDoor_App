@@ -1,15 +1,22 @@
 package tapsi.geodoor.model;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import com.google.android.material.navigation.NavigationView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.IntentFilter;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.geodoor_app.R;
@@ -22,6 +29,8 @@ public class NavigationMenuController {
     private TabViewModel tabViewModel;
     private DrawerLayout mDrawerLayout;
 
+    private String TAG = "tapsi.NavigationMenuController";
+
     public DrawerLayout getmDrawerLayout() {
         return mDrawerLayout;
     }
@@ -31,7 +40,29 @@ public class NavigationMenuController {
         this.tabViewModel = tabViewModel;
         mDrawerLayout = mainActivity.findViewById(R.id.drawer_layout);
         setupNavigationMenu();
+        LocalBroadcastManager.getInstance(mainActivity).registerReceiver(broadcastReceiver, new IntentFilter(Constants.BROADCAST.EVENT_TOMAIN));
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra(Constants.BROADCAST.NAME_LOCATIONUPDATE))
+            {
+                ArrayList<String> list = intent.getExtras().getStringArrayList(Constants.BROADCAST.NAME_LOCATIONUPDATE);
+                //Log.d(TAG, " => broadcastReceiver");
+                // Always check for null reference
+                final PagerAdapter pagerAdapter = (PagerAdapter) tabViewModel.getViewPager().getAdapter();
+
+                if (pagerAdapter.getMainFragment().getView() == null)
+                    return;
+
+                TextView textView = (TextView) pagerAdapter.getMainFragment().getView().findViewById(R.id.status_Distance);
+                textView.setText(list.get(0));
+            }
+
+            //nm.notify(Constants.NOTIFICATION_ID.SOCKET_SERVICE_TEMP, builder.build());
+        }
+    };
 
     private void setupNavigationMenu() {
         NavigationView navigationView = mainActivity.findViewById(R.id.nav_view);
@@ -73,8 +104,9 @@ public class NavigationMenuController {
                             Intent stopIntent = new Intent(mainActivity, MyService.class);
                             stopIntent.setAction(Constants.ACTION.SOCKET_STOP);
                             mainActivity.startService(stopIntent);
-                            mainActivity.unbindService(mainActivity.serviceConnection);
                             closeApplication();
+
+                            // TODO Stop other Service as well
                             return true;
                         }
                         return true;

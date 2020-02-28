@@ -43,6 +43,9 @@ public class MainFragment extends Fragment {
     }
 
     public void doorAnimationOpen() {
+        if(null == getView())
+            return;
+
         doorAnimation1 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_open);
         final ImageView v1 = getView().findViewById(R.id.status_door_panel6);
         v1.startAnimation(doorAnimation1);
@@ -104,6 +107,9 @@ public class MainFragment extends Fragment {
     }
 
     public void doorAnimationClose() {
+        if(null == getView())
+            return;
+
         doorAnimation1 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_close);
         final ImageView v1 = getView().findViewById(R.id.status_door_panel1);
         v1.startAnimation(doorAnimation1);

@@ -21,8 +21,6 @@
     <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
     <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
     <string name="controls_btn_door">TÜR ÖFFNEN</string>
-    <string name="controls_btn_gate_isClosed">TORSTATUS GESCHLOSSEN</string>
-    <string name="controls_btn_gate_isOpen">TORSTATUS OFFEN</string>
     <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
     <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
     <string name="controls_btn_mode">MAN MODUS AKTIV</string>
@@ -31,4 +29,6 @@
     <string name="dialog_title">Berechtigungs Warnung:</string>
     <string name="dialog_message2">Telefon Berechtigung: Notwendig um eine eindeutige id für den GeoDoorServer zu erhalten.</string>
     <string name="dialog_message1">GPS Berechtigung: Notwendig um gps Daten für den auto modus zu bekommen.</string>
+    <string name="settings_save">Speichern</string>
+    <string name="settings_cancel">Abbrechen</string>
 </resources>

@@ -9,6 +9,7 @@ public class ConfigRepository {
 
     private ConfigDao configDao;
     private LiveData<Config> config;
+    private Config thisConfig;
 
     public ConfigRepository(Application application) {
         Database database = Database.getInstance(application);
@@ -30,6 +31,10 @@ public class ConfigRepository {
 
     public LiveData<Config> getConfig() {
         return config;
+    }
+
+    public Config getThisConfig() {
+        return configDao.getThisConfig();
     }
 
     private static class InsertConfigAsyncTask extends AsyncTask<Config, Void, Void> {

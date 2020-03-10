@@ -40,7 +40,6 @@ import java.util.Locale;
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.geodoor_app.R;
 import tapsi.geodoor.logic.Constants;
-import tapsi.geodoor.logic.data.Config;
 
 import static tapsi.geodoor.App.CHANNEL_ID;
 import static tapsi.geodoor.App.NOTIFY_ID;
@@ -131,7 +130,7 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                     notificationIntent, 0);
 
-            Intent stopIntent = new Intent(this, MyService.class);
+            Intent stopIntent = new Intent(this, GPSService.class);
             stopIntent.setAction(Constants.ACTION.SOCKET_STOP);
             PendingIntent sstopIntent = PendingIntent.getService(this, 0,
                     stopIntent, 0);

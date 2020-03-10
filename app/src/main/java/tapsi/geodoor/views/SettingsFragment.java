@@ -21,7 +21,6 @@ import tapsi.geodoor.geodoor_app.R;
  * A simple {@link Fragment} subclass.
  */
 public class SettingsFragment extends Fragment {
-    private OnSettingsFragmentListener mListener;
 
     private TextInputEditText editText;
     private String TAG = "tapsi.geodoor.views.SettingsFragment";
@@ -34,15 +33,6 @@ public class SettingsFragment extends Fragment {
         this.editText.setText(name);
     }
 
-    public interface OnSettingsFragmentListener {
-        void onNameChanged(String name);
-        void onSettingsCreated();
-    }
-
-    public void setListener(OnSettingsFragmentListener listener) {
-        mListener = listener;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,18 +43,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (mListener != null) {
-            mListener.onSettingsCreated();
-        }
         editText = getView().findViewById(R.id.textEditName);
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus && mListener != null) {
-                    mListener.onNameChanged(editText.getText().toString());
-                }
-            }
-        });
     }
 }

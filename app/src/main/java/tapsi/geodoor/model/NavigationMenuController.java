@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.geodoor_app.R;
 import tapsi.geodoor.logic.Constants;
-import tapsi.geodoor.logic.service.MyService;
 
 public class NavigationMenuController {
 

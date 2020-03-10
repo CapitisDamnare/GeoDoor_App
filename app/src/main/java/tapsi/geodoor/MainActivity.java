@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
-import tapsi.geodoor.logic.data.Config;
+
 import tapsi.geodoor.logic.service.GPSService;
 import tapsi.geodoor.model.NavigationMenuController;
 import tapsi.geodoor.model.PagerAdapter;
@@ -33,11 +33,9 @@ import tapsi.geodoor.model.TabViewModel;
 import tapsi.geodoor.geodoor_app.R;
 import tapsi.geodoor.views.WarningFragmentDialog;
 import tapsi.geodoor.logic.Constants;
-import tapsi.geodoor.logic.service.MyService;
 import tapsi.geodoor.views.SettingsFragment;
 
-public class MainActivity extends AppCompatActivity implements WarningFragmentDialog.Communicator,
-        SettingsFragment.OnSettingsFragmentListener {
+public class MainActivity extends AppCompatActivity implements WarningFragmentDialog.Communicator {
 
     private TabViewModel tabViewModel;
     private NavigationMenuController navigationMenuController;
@@ -45,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
 
     //MyService myService;
     GPSService gpsService;
-
-    Config config;
 
     // Permission stuff
     public static final int MY_PERMISSIONS_REQUESTS = 99;
@@ -69,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
         setContentView(R.layout.activity_main);
 
         tabViewModel = ViewModelProviders.of(this).get(TabViewModel.class);
-        config = tabViewModel.getCurrentConfig();
         setupTabLayout();
         navigationMenuController = new NavigationMenuController(this, tabViewModel);
 
@@ -86,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
         tabLayout.setupWithViewPager(viewPager);
 
         PagerAdapter pagerAdapter = (PagerAdapter) viewPager.getAdapter();
-        pagerAdapter.getSettingsFragment().setListener(this);
     }
 
     private void setUpToolbar() {
@@ -99,38 +93,20 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
     }
 
     private void startForegroundService() {
-//        Intent startIntent = new Intent(this, MyService.class);
-//        startIntent.setAction(Constants.ACTION.SOCKET_START);
-//        startService(startIntent);
-//        bindService(startIntent, serviceConnection, Context.BIND_AUTO_CREATE);
-
         // TODO: replace Hardcoded string
         Intent gpsIntent = new Intent(this, GPSService.class);
 
         Bundle bundle = new Bundle();
-        bundle.putString("Longitude", config.getLongitude());
-        bundle.putString("Latitude", config.getLatitude());
-        bundle.putString("Altitude", config.getAltitude());
-        bundle.putInt("Radius", config.getRadius());
+        bundle.putString("Longitude", "123");
+        bundle.putString("Latitude", "456");
+        bundle.putString("Altitude", "789");
+        bundle.putInt("Radius", 200);
         gpsIntent.putExtras(bundle);
 
         gpsIntent.setAction(Constants.ACTION.GPS_START);
         startService(gpsIntent);
         bindService(gpsIntent, gpsServiceConnection, Context.BIND_AUTO_CREATE);
     }
-
-
-//    public ServiceConnection serviceConnection = new ServiceConnection() {
-//        @Override
-//        public void onServiceConnected(ComponentName name, IBinder service) {
-//            MyService.MyBinder sBinder = (MyService.MyBinder) service;
-//            myService = sBinder.getService();
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName name) {
-//        }
-//    };
 
     public ServiceConnection gpsServiceConnection = new ServiceConnection() {
         @Override
@@ -258,15 +234,5 @@ public class MainActivity extends AppCompatActivity implements WarningFragmentDi
         Intent intent = new Intent(event);
         intent.putExtra(name, value);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
-
-    @Override
-    public void onNameChanged(String name) {
-        tabViewModel.onNameChanged(name);
-    }
-
-    @Override
-    public void onSettingsCreated() {
-        tabViewModel.onSettingsCreated();
     }
 }

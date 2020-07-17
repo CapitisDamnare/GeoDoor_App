@@ -1,30 +1,21 @@
 package tapsi.geodoor.model;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import com.google.android.material.navigation.NavigationView;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.content.IntentFilter;
 import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.geodoor_app.R;
-import tapsi.geodoor.logic.Constants;
 
 public class NavigationMenuController {
 
     private MainActivity mainActivity;
-    private TabViewModel tabViewModel;
     private DrawerLayout mDrawerLayout;
 
     private String TAG = "tapsi.NavigationMenuController";
@@ -33,39 +24,15 @@ public class NavigationMenuController {
         return mDrawerLayout;
     }
 
-    public NavigationMenuController(MainActivity mainActivity, TabViewModel tabViewModel) {
+    public NavigationMenuController(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.tabViewModel = tabViewModel;
         mDrawerLayout = mainActivity.findViewById(R.id.drawer_layout);
         setupNavigationMenu();
-        LocalBroadcastManager.getInstance(mainActivity).registerReceiver(broadcastReceiver, new IntentFilter(Constants.BROADCAST.EVENT_TOMAIN));
     }
-
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra(Constants.BROADCAST.NAME_LOCATIONUPDATE))
-            {
-                ArrayList<String> list = intent.getExtras().getStringArrayList(Constants.BROADCAST.NAME_LOCATIONUPDATE);
-                //Log.d(TAG, " => broadcastReceiver");
-                // Always check for null reference
-                final PagerAdapter pagerAdapter = (PagerAdapter) tabViewModel.getViewPager().getAdapter();
-
-                if (pagerAdapter.getMainFragment().getView() == null)
-                    return;
-
-                TextView textView = (TextView) pagerAdapter.getMainFragment().getView().findViewById(R.id.status_Distance);
-                textView.setText(list.get(0));
-            }
-
-            //nm.notify(Constants.NOTIFICATION_ID.SOCKET_SERVICE_TEMP, builder.build());
-        }
-    };
 
     private void setupNavigationMenu() {
         NavigationView navigationView = mainActivity.findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
-        final PagerAdapter pagerAdapter = (PagerAdapter) tabViewModel.getViewPager().getAdapter();
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -78,18 +45,14 @@ public class NavigationMenuController {
                         String title = menuItem.getTitle().toString();
 
                         if (title.equals(mainActivity.getResources().getString(R.string.back))) {
-                            pagerAdapter.getMainFragment().doorAnimationOpen();
                             return true;
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.settings))) {
-                            tabViewModel.getViewPager().setCurrentItem(2);
                             return true;
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.about))) {
-                            pagerAdapter.getMainFragment().doorAnimationClose();
-                            //sendOutBroadcast(Constants.BROADCAST.EVENT_TOSOCKET, Constants.BROADCAST.NAME_OPENGATE, "true");
                             return true;
                         }
 
@@ -99,9 +62,6 @@ public class NavigationMenuController {
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.exit))) {
-                            Intent stopIntent = new Intent(mainActivity, MyService.class);
-                            stopIntent.setAction(Constants.ACTION.SOCKET_STOP);
-                            mainActivity.startService(stopIntent);
                             closeApplication();
 
                             // TODO Stop other Service as well
@@ -116,57 +76,44 @@ public class NavigationMenuController {
 
         MenuItem itemBack = menu.findItem(R.id.nav_back);
         SpannableString s_itemBack = new SpannableString(itemBack.getTitle());
-        s_itemBack.setSpan(new
-
-                TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite), 0, s_itemBack.length(), 0);
-//        s_itemBack.setSpan(new CustomTypefaceSpan("", typeface),0,s_itemBack.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        s_itemBack.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite),
+                0, s_itemBack.length(), 0);
         itemBack.setTitle(s_itemBack);
 
         MenuItem itemSettings = menu.findItem(R.id.nav_settings);
         SpannableString s_itemSettings = new SpannableString(itemSettings.getTitle());
-        s_itemSettings.setSpan(new
-
-                TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemBlue), 0, s_itemSettings.length(), 0);
+        s_itemSettings.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemBlue),
+                0, s_itemSettings.length(), 0);
         itemSettings.setTitle(s_itemSettings);
 
         MenuItem itemAbout = menu.findItem(R.id.nav_about);
         SpannableString s_itemAbout = new SpannableString(itemAbout.getTitle());
-        s_itemAbout.setSpan(new
-
-                TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite), 0, s_itemAbout.length(), 0);
+        s_itemAbout.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite),
+                0, s_itemAbout.length(), 0);
         itemAbout.setTitle(s_itemAbout);
 
         MenuItem itemHide = menu.findItem(R.id.nav_hide);
         SpannableString s_itemHide = new SpannableString(itemHide.getTitle());
-        s_itemHide.setSpan(new
-
-                TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemBlue), 0, s_itemHide.length(), 0);
+        s_itemHide.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemBlue),
+                0, s_itemHide.length(), 0);
         itemHide.setTitle(s_itemHide);
 
         MenuItem itemExit = menu.findItem(R.id.nav_exit);
         SpannableString s_itemExit = new SpannableString(itemExit.getTitle());
-        s_itemExit.setSpan(new
-
-                TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite), 0, s_itemExit.length(), 0);
+        s_itemExit.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite),
+                0, s_itemExit.length(), 0);
         itemExit.setTitle(s_itemExit);
     }
 
     private void closeApplication() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mainActivity.finishAndRemoveTask();
-        } else
-        {
+        } else {
             mainActivity.finishAffinity();
         }
     }
 
     private void hideApplication() {
         mainActivity.moveTaskToBack(false);
-    }
-
-    public void sendOutBroadcast(String event, String name, String value) {
-        Intent intent = new Intent(event);
-        intent.putExtra(name, value);
-        LocalBroadcastManager.getInstance(mainActivity).sendBroadcast(intent);
     }
 }

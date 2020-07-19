@@ -63,6 +63,7 @@ public class ControlFragment extends Fragment {
         tabViewModel.getAutoMode().observe(getViewLifecycleOwner(), isAutoMode -> {
             Log.i(TAG, "getAutoMode().observe: " + isAutoMode);
             TextView statusMode = getView().findViewById(R.id.controls_btn_mode);
+            this.isAutoMode = isAutoMode;
             if(isAutoMode)
                 statusMode.setText(R.string.controls_btn_mode_activate_man);
             else

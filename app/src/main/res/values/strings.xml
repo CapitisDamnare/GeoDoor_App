@@ -16,17 +16,18 @@
     <string name="status_mode_textView_man">MANUAL MODE ACTIVE</string>
     <string name="status_door">DOOR CLOSED</string>
     <string name="status_connection">CONNECTED</string>
-    <string name="status_Distance" translatable="false">160.42km</string>
+    <string name="status_Distance" translatable="false">- km</string>
     <string name="status_Distance_Description">Distance</string>
-    <string name="status_gpsTimeOut" translatable="false">10 sek</string>
-    <string name="status_gpsTimeOut_Description">GPS Timeout</string>
-    <string name="status_Speed" translatable="false">120 km/h</string>
+    <string name="status_gpsTimeOut" translatable="false">- s</string>
+    <string name="status_gpsTimeOut_Description">GPS Update Interval</string>
+    <string name="status_Speed" translatable="false">- km/h</string>
     <string name="status_Speed_Description">Speed</string>
-    <string name="status_Accuracy" translatable="false">12 m</string>
+    <string name="status_Accuracy" translatable="false">- m</string>
     <string name="status_Accuracy_Description">Precision</string>
-    <string name="status_LockTime" translatable="false">60 sek</string>
+    <string name="status_LockTime" translatable="false">0 s</string>
     <string name="status_LockTime_Description">Lock Timeout</string>
-    <string name="status_Lock">OFF</string>
+    <string name="status_Lock_Off">OFF</string>
+    <string name="status_Lock_On">ON</string>
     <string name="status_Lock_Description">LOCK</string>
 
     <string name="controls_btn_gate_auto">OPEN DOOR AUTO</string>

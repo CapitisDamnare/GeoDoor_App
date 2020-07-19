@@ -16,10 +16,11 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.R;
+import tapsi.geodoor.logic.AutoGateLogic;
 
 public class LocationUpdatesService extends Service {
 
@@ -54,19 +56,19 @@ public class LocationUpdatesService extends Service {
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    private static long updateInterval = 3000;
 
     /**
      * The fastest rate for active location updates. Updates will never be more frequent
      * than this value.
      */
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
-            UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    private static long fastestUpdateInterval =
+            updateInterval / 2;
 
     /**
      * The identifier for the notification displayed for the foreground service.
      */
-    private static final int NOTIFICATION_ID = 12345678;
+    private static final int NOTIFICATION_ID = 13571113;
 
     /**
      * Used to check whether the bound activity has really gone away and not unbound as part of an
@@ -98,6 +100,11 @@ public class LocationUpdatesService extends Service {
      * The current location.
      */
     private Location mLocation;
+
+    /**
+     * Gets gps updates and implements the logic to open the gate
+     */
+    private AutoGateLogic autoGateLogic;
 
     public LocationUpdatesService() {
     }
@@ -144,6 +151,8 @@ public class LocationUpdatesService extends Service {
         if (startedFromNotification) {
             removeLocationUpdates();
             stopSelf();
+        } else {
+            autoGateLogic = new AutoGateLogic(getApplicationContext());
         }
         // Tells the system to not try to recreate the service after it has been killed.
         return START_NOT_STICKY;
@@ -289,13 +298,37 @@ public class LocationUpdatesService extends Service {
     }
 
     private void onNewLocation(Location location) {
-        Log.i(TAG, "New location: " + location);
-
         mLocation = location;
+        long newUpdateIinterval = autoGateLogic.getProgressiveTimeOutInMillis(location);
+        if (newUpdateIinterval != updateInterval)
+        {
+            updateInterval = newUpdateIinterval;
+            fastestUpdateInterval = updateInterval / 2;
+
+            mLocationRequest.setInterval(updateInterval);
+            mLocationRequest.setFastestInterval(fastestUpdateInterval);
+            try {
+                mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                        mLocationCallback, Looper.myLooper());
+            } catch (SecurityException unlikely) {
+                Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
+            }
+        }
+
+        autoGateLogic.updateLocation(location);
+
+        LocationUpdateServiceInfo info =
+                LocationUpdateServiceInfo.builder()
+                .setDistance(autoGateLogic.getLastCalculatedDistance())
+                .setCurrentLocation(location)
+                .setCurrentUpdateInterval(autoGateLogic.getCurrentUpdateInterval())
+                .setCountDown(autoGateLogic.getCountDown())
+                .setCurrentState(autoGateLogic.getCurrentState())
+                .build();
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
-        intent.putExtra(EXTRA_LOCATION, location);
+        intent.putExtra(EXTRA_LOCATION, info);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
         // Update notification content if running as a foreground service.
@@ -309,8 +342,8 @@ public class LocationUpdatesService extends Service {
      */
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+        mLocationRequest.setInterval(updateInterval);
+        mLocationRequest.setFastestInterval(fastestUpdateInterval);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 

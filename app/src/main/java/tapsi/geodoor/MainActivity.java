@@ -35,6 +35,7 @@ import com.andexert.library.BuildConfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import tapsi.geodoor.logic.service.LocationUpdateServiceInfo;
 import tapsi.geodoor.logic.service.LocationUpdatesService;
 import tapsi.geodoor.logic.service.Utils;
 import tapsi.geodoor.model.NavigationMenuController;
@@ -72,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements
             LocationUpdatesService.LocalBinder binder = (LocationUpdatesService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
+
+            if (Utils.requestingLocationUpdates(getApplicationContext())) {
+                mService.requestLocationUpdates();
+            }
         }
 
         @Override
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements
         setupTabLayout();
         navigationMenuController = new NavigationMenuController(this);
         setUpToolbar();
+        tabViewModel = new ViewModelProvider(this).get(TabViewModel.class);
 
         if (Utils.requestingLocationUpdates(this)) {
             if (!checkPermissions()) {
@@ -160,16 +166,6 @@ public class MainActivity extends AppCompatActivity implements
         ActionBar actionbar = this.getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                navigationMenuController.getmDrawerLayout().openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -255,16 +251,29 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                navigationMenuController.getmDrawerLayout().openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * Receiver for broadcasts sent by {@link LocationUpdatesService}.
      */
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
-            if (location != null) {
-                Toast.makeText(MainActivity.this, Utils.getLocationText(location),
-                        Toast.LENGTH_SHORT).show();
+            LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+            if (info != null) {
+                tabViewModel.setDistance(info.distance());
+                tabViewModel.setLastLocation(info.currentLocation());
+                tabViewModel.setUpdateInterval(info.currentUpdateInterval());
+                tabViewModel.setLastGateOpenEvent(info.countDown());
+                tabViewModel.setCurrentState(info.currentState());
             }
         }
     }
@@ -281,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private void setButtonsState(boolean requestingLocationUpdates) {
         Log.i(TAG, "requestingLocationUpdates: " + requestingLocationUpdates);
-        tabViewModel = new ViewModelProvider(this).get(TabViewModel.class);
         tabViewModel.setAutoMode(requestingLocationUpdates);
     }
 

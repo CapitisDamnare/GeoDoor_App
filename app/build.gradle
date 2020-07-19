@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "geodoor.tapsi.geodoor_app"
-        minSdkVersion 19
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -26,6 +26,7 @@ dependencies {
     def lifecycle_version = "2.2.0"
     def room_version = "2.3.0-alpha01"
     def preference_version = "1.1.1"
+    def autoValueVersion = "1.7.4"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -55,4 +56,10 @@ dependencies {
 
     // Androidx preference
     implementation "androidx.preference:preference:$preference_version"
+
+    // Use 'api' rather than 'compile' for Android or java-library projects.
+    implementation "com.google.auto.value:auto-value-annotations:${autoValueVersion}"
+    annotationProcessor "com.google.auto.value:auto-value:${autoValueVersion}"
+
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.8'
 }

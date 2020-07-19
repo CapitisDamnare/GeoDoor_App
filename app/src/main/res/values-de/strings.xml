@@ -11,11 +11,11 @@
     <string name="status_door">TOR GESCHLOSSEN</string>
     <string name="status_connection">VERBUNDEN</string>
     <string name="status_Distance_Description">Distanz</string>
-    <string name="status_gpsTimeOut_Description">GPS Zeitsperre</string>
+    <string name="status_gpsTimeOut_Description">GPS Interval</string>
     <string name="status_Speed_Description">Geschwindigkeit</string>
     <string name="status_Accuracy_Description">Genauigkeit</string>
     <string name="status_LockTime_Description">Zeitsperre</string>
-    <string name="status_Lock">AUS</string>
+    <string name="status_Lock_Off">AUS</string>
     <string name="status_Lock_Description">Sperre</string>
     <string name="controls_btn_gate_auto">TOR ÖFFNEN AUTO</string>
     <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
@@ -33,4 +33,5 @@
     <string name="settings_cancel">Abbrechen</string>
     <string name="status_mode_textView_man">MANUELLER MODUS AKTIV</string>
     <string name="controls_btn_mode_activate_man">AKTIVIERE MAN MODE</string>
+    <string name="status_Lock_On">EIN</string>
 </resources>

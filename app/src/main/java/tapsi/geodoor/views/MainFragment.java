@@ -1,6 +1,8 @@
 package tapsi.geodoor.views;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import tapsi.geodoor.R;
+import tapsi.geodoor.logic.AutoGateLogic;
 import tapsi.geodoor.model.TabViewModel;
 
 /**
@@ -32,6 +40,10 @@ public class MainFragment extends Fragment {
     private Animation doorAnimation4;
     private Animation doorAnimation5;
     private Animation doorAnimation6;
+
+    private boolean isTimerRunning = false;
+    private Timer timer;
+    private long countDown;
 
     public MainFragment() {
         // Required empty public constructor
@@ -53,6 +65,10 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tabViewModel = new ViewModelProvider(getActivity()).get(TabViewModel.class);
+        initLiveDataObservers();
+    }
+
+    private void initLiveDataObservers() {
         tabViewModel.getAutoMode().observe(getViewLifecycleOwner(), isAutoMode -> {
             Log.i(TAG, "getAutoMode().observe: " + isAutoMode);
             TextView statusMode = getView().findViewById(R.id.status_mode_textView);
@@ -60,6 +76,41 @@ public class MainFragment extends Fragment {
                 statusMode.setText(R.string.status_mode_textView_auto);
             else
                 statusMode.setText(R.string.status_mode_textView_man);
+        });
+
+        tabViewModel.getDistance().observe(getViewLifecycleOwner(), distance -> {
+            TextView statusDistance = getView().findViewById(R.id.status_Distance);
+            statusDistance.setText(formatDistance(distance));
+        });
+
+        tabViewModel.getLastLocation().observe(getViewLifecycleOwner(), lastLocation -> {
+            TextView statusSpeed = getView().findViewById(R.id.status_Speed);
+            statusSpeed.setText(formatSpeed(lastLocation.getSpeed()));
+
+            String text = lastLocation.getAccuracy() + " m";
+            TextView statusAccuracy = getView().findViewById(R.id.status_Accuracy);
+            statusAccuracy.setText(text);
+        });
+
+        tabViewModel.getUpdateInterval().observe(getViewLifecycleOwner(), updateInterval -> {
+            TextView statusGpsTimeout = getView().findViewById(R.id.status_gpsTimeout);
+            String text = updateInterval / 1000 + " s";
+            statusGpsTimeout.setText(text);
+        });
+
+        tabViewModel.getLastGateOpenEvent().observe(getViewLifecycleOwner(), countDown -> {
+            if (!isTimerRunning) {
+                timer = new Timer();
+                startCountDown(countDown);
+            }
+        });
+
+        tabViewModel.getCurrentState().observe(getViewLifecycleOwner(), currentState -> {
+            TextView textView = getView().findViewById(R.id.status_Lock);
+            if (currentState.equals(AutoGateLogic.TravelState.HOME))
+                textView.setText(R.string.status_Lock_On);
+            else if (currentState.equals(AutoGateLogic.TravelState.OUTSIDE))
+                textView.setText(R.string.status_Lock_Off);
         });
     }
 
@@ -130,4 +181,62 @@ public class MainFragment extends Fragment {
 
         v6.postDelayed(() -> v6.startAnimation(doorAnimation6), 1200);
     }
+
+    private String formatSpeed(float speed) {
+        speed *= 3.6;
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
+        String str_num = String.valueOf(df.format(speed));
+        str_num += " km/h";
+        return str_num;
+    }
+
+    private String formatDistance (float meter) {
+
+        boolean km = false;
+        if (meter > 999.99) {
+            meter = meter / 1000;
+            km = true;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
+        String str_num = String.valueOf(df.format(meter));
+        if (km)
+            str_num += " km";
+        else
+            str_num += " m";
+
+        return str_num;
+    }
+
+    private void startCountDown(long countDown) {
+        if (countDown <= 0)
+            return;
+
+        this.countDown = countDown;
+        isTimerRunning = true;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                MainFragment.this.countDown -= 1; //increase every sec
+                mHandler.obtainMessage(1).sendToTarget();
+
+                if (MainFragment.this.countDown <= 0) {
+                    timer.cancel();
+                    isTimerRunning = false;
+                }
+            }
+        }, 0, 1000);
+    }
+
+    public Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+           TextView textView = getView().findViewById(R.id.status_LockTime);
+           String text = countDown + " s";
+           textView.setText(text);
+        }
+    };
 }

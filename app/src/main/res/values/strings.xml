@@ -12,7 +12,8 @@
     <string name="name_part1" translatable="false">Geo</string>
     <string name="name_part2" translatable="false">Door</string>
 
-    <string name="status_mode_textView">AUTOMATIC MODE ACTIVE</string>
+    <string name="status_mode_textView_auto">AUTOMATIC MODE ACTIVE</string>
+    <string name="status_mode_textView_man">MANUAL MODE ACTIVE</string>
     <string name="status_door">DOOR CLOSED</string>
     <string name="status_connection">CONNECTED</string>
     <string name="status_Distance" translatable="false">160.42km</string>
@@ -36,7 +37,8 @@
     <string name="controls_btn_homepage" translatable="false">HOMEPAGE</string>
     <string name="controls_btn_log" translatable="false">LOG</string>
     <string name="controls_btn_error_report">SEND ERROR REPORT</string>
-    <string name="controls_btn_mode">MAN MODE ACTIVE</string>
+    <string name="controls_btn_mode_activate_auto">ACTIVATE AUTO MODE</string>
+    <string name="controls_btn_mode_activate_man">ACTIVATE MAN MODE</string>
 
     <string name="settings_name" translatable="false">NAME</string>
     <string name="settings_ip_address">IP ADDRESS</string>
@@ -58,4 +60,19 @@
     <string name="dialog_close">CLOSE</string>
     <string name="settings_save">Save</string>
     <string name="settings_cancel">Cancel</string>
+
+
+
+    <string name="launch_activity" translatable="false">Launch activity</string>
+    <string name="location_unknown" translatable="false">Location unknown</string>
+    <string name="location_updates_label" translatable="false">Location Updates</string>
+
+    <string name="permission_rationale" translatable="false">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation" translatable="false">Permission was denied, but is needed for core
+        functionality.</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="request_location_updates" translatable="false">Request location updates</string>
+    <string name="remove_location_updates" translatable="false">Remove location updates</string>
+
+    <string name="location_updated" translatable="false">Location Updated: %1$s</string>
 </resources>

@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
 import tapsi.geodoor.MainActivity;
-import tapsi.geodoor.geodoor_app.R;
+import tapsi.geodoor.R;
 
 public class NavigationMenuController {
 

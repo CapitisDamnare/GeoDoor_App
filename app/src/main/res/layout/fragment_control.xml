@@ -112,7 +112,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorBlue"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="@string/controls_btn_mode"
+                        android:text="@string/controls_btn_mode_activate_auto"
                         android:textColor="@color/colorWhite"
                         android:textSize="14sp" />
 

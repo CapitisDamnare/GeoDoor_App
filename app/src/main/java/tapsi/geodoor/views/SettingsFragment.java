@@ -1,21 +1,17 @@
 package tapsi.geodoor.views;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.android.material.textfield.TextInputEditText;
 
-import tapsi.geodoor.geodoor_app.R;
+import tapsi.geodoor.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +23,11 @@ public class SettingsFragment extends Fragment {
 
     public SettingsFragment() {
         // Required empty public constructor
+    }
+
+    public static SettingsFragment newInstance() {
+        SettingsFragment settingsFragment = new SettingsFragment();
+        return settingsFragment;
     }
 
     public void setEditText(String name) {

@@ -1,8 +1,5 @@
 package tapsi.geodoor.model;
 
-import android.content.Context;
-
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -14,39 +11,31 @@ import tapsi.geodoor.views.SettingsFragment;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private String TAG = "tapsi.geodoor.controller.PagerAdapter";
-    private final Context mContext;
+    private static int NUM_ITEMS = 3;
 
-    MainFragment mainFragment;
-    ControlFragment controlFragment;
-    SettingsFragment settingsFragment;
-
-    public PagerAdapter(Context context, FragmentManager fm) {
+    public PagerAdapter(FragmentManager fm) {
         super(fm);
-        mContext = context;
-        mainFragment = new MainFragment();
-        controlFragment = new ControlFragment();
-        settingsFragment = new SettingsFragment();
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return mainFragment;
+                return MainFragment.newInstance();
             case 1:
-                return controlFragment;
+                return ControlFragment.newInstance();
             case 2:
-                return settingsFragment;
+                return SettingsFragment.newInstance();
+            default:
+                return null;
         }
-        return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return NUM_ITEMS;
     }
 
-    @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
@@ -57,6 +46,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return "EINSTELLUNGEN";
         }
-        return super.getPageTitle(position);
+        return null;
     }
 }

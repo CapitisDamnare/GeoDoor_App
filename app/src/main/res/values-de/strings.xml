@@ -7,7 +7,7 @@
     <string name="exit">Alles Schließen</string>
     <string name="status">Status</string>
     <string name="controls">Steuerung</string>
-    <string name="status_mode_textView">AUTOMATISCHER MODUS AKTIV</string>
+    <string name="status_mode_textView_auto">AUTOMATISCHER MODUS AKTIV</string>
     <string name="status_door">TOR GESCHLOSSEN</string>
     <string name="status_connection">VERBUNDEN</string>
     <string name="status_Distance_Description">Distanz</string>
@@ -23,7 +23,7 @@
     <string name="controls_btn_door">TÜR ÖFFNEN</string>
     <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
     <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
-    <string name="controls_btn_mode">MAN MODUS AKTIV</string>
+    <string name="controls_btn_mode_activate_auto">AKTIVIERE AUTO MODE</string>
     <string name="settings_ip_address">IP ADRESSE</string>
     <string name="dialog_close">CLOSE</string>
     <string name="dialog_title">Berechtigungs Warnung:</string>
@@ -31,4 +31,6 @@
     <string name="dialog_message1">GPS Berechtigung: Notwendig um gps Daten für den auto modus zu bekommen.</string>
     <string name="settings_save">Speichern</string>
     <string name="settings_cancel">Abbrechen</string>
+    <string name="status_mode_textView_man">MANUELLER MODUS AKTIV</string>
+    <string name="controls_btn_mode_activate_man">AKTIVIERE MAN MODE</string>
 </resources>

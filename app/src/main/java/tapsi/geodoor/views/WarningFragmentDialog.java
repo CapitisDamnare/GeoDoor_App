@@ -10,8 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import tapsi.geodoor.geodoor_app.R;
-
+import tapsi.geodoor.R;
 
 /**
  * A simple {@link Fragment} subclass.

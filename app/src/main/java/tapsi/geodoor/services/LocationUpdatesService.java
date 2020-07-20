@@ -120,6 +120,7 @@ public class LocationUpdatesService extends Service {
             }
         };
 
+        autoGateLogic = new AutoGateLogic(getApplicationContext());
         createLocationRequest();
         getLastLocation();
 
@@ -142,7 +143,6 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "Service started");
         boolean startedFromNotification = intent.getBooleanExtra(EXTRA_STARTED_FROM_NOTIFICATION,
                 false);
 
@@ -151,7 +151,7 @@ public class LocationUpdatesService extends Service {
             removeLocationUpdates(true);
             stopSelf();
         } else {
-            autoGateLogic = new AutoGateLogic(getApplicationContext());
+            autoGateLogic.resetState();
         }
         // Tells the system to not try to recreate the service after it has been killed.
         return START_NOT_STICKY;
@@ -178,7 +178,6 @@ public class LocationUpdatesService extends Service {
         // Called when a client (MainActivity in case of this sample) returns to the foreground
         // and binds once again with this service. The service should cease to be a foreground
         // service when that happens.
-        Log.i(TAG, "in onRebind()");
         stopForeground(true);
         mChangingConfiguration = false;
         super.onRebind(intent);
@@ -186,14 +185,10 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.i(TAG, "Last client unbound from service");
-
         // Called when the last client (MainActivity in case of this sample) unbinds from this
         // service. If this method is called due to a configuration change in MainActivity, we
         // do nothing. Otherwise, we make this service a foreground service.
         if (!mChangingConfiguration && Utils.requestingLocationUpdates(this)) {
-            Log.i(TAG, "Starting foreground service");
-
             startForeground(NOTIFICATION_ID, getNotification());
         }
         return true; // Ensures onRebind() is called when a client re-binds.
@@ -226,7 +221,6 @@ public class LocationUpdatesService extends Service {
      * {@link SecurityException}.
      */
     public void removeLocationUpdates(boolean saveInSharedPref) {
-        Log.i(TAG, "Removing location updates");
         try {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
             if (saveInSharedPref)
@@ -239,8 +233,7 @@ public class LocationUpdatesService extends Service {
     }
 
     public void updateConfig(Config config) {
-        if (autoGateLogic != null)
-            autoGateLogic.updateConfig(config);
+        autoGateLogic.updateConfig(config);
     }
 
     /**
@@ -304,8 +297,7 @@ public class LocationUpdatesService extends Service {
 
         // Get progressive location updates.
         long newUpdateIinterval = autoGateLogic.getProgressiveTimeOutInMillis(location);
-        if (newUpdateIinterval != updateInterval)
-        {
+        if (newUpdateIinterval != updateInterval) {
             updateInterval = newUpdateIinterval;
             fastestUpdateInterval = updateInterval / 2;
 
@@ -324,12 +316,12 @@ public class LocationUpdatesService extends Service {
 
         LocationUpdateServiceInfo info =
                 LocationUpdateServiceInfo.builder()
-                .setDistance(autoGateLogic.getLastCalculatedDistance())
-                .setCurrentLocation(location)
-                .setCurrentUpdateInterval(autoGateLogic.getCurrentUpdateInterval())
-                .setCountDown(autoGateLogic.getCountDown())
-                .setCurrentState(autoGateLogic.getCurrentState())
-                .build();
+                        .setDistance(autoGateLogic.getLastCalculatedDistance())
+                        .setCurrentLocation(location)
+                        .setCurrentUpdateInterval(autoGateLogic.getCurrentUpdateInterval())
+                        .setCountDown(autoGateLogic.getCountDown())
+                        .setCurrentState(autoGateLogic.getCurrentState())
+                        .build();
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);

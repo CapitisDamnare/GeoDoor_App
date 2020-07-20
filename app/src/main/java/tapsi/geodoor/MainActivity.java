@@ -17,7 +17,6 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -34,11 +33,11 @@ import com.andexert.library.BuildConfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import tapsi.geodoor.controller.NavigationMenuController;
+import tapsi.geodoor.controller.PagerAdapter;
 import tapsi.geodoor.services.LocationUpdateServiceInfo;
 import tapsi.geodoor.services.LocationUpdatesService;
 import tapsi.geodoor.services.Utils;
-import tapsi.geodoor.controller.NavigationMenuController;
-import tapsi.geodoor.controller.PagerAdapter;
 import tapsi.geodoor.viewModel.TabViewModel;
 import tapsi.geodoor.views.ControlFragment;
 
@@ -274,14 +273,15 @@ public class MainActivity extends AppCompatActivity implements
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
-            Log.i(TAG, "Received Location Update");
-            if (info != null) {
-                tabViewModel.setDistance(info.distance());
-                tabViewModel.setLastLocation(info.currentLocation());
-                tabViewModel.setUpdateInterval(info.currentUpdateInterval());
-                tabViewModel.setLastGateOpenEvent(info.countDown());
-                tabViewModel.setCurrentState(info.currentState());
+            if (intent.hasExtra(mService.EXTRA_LOCATION)) {
+                LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+                if (info != null) {
+                    tabViewModel.setDistance(info.distance());
+                    tabViewModel.setLastLocation(info.currentLocation());
+                    tabViewModel.setUpdateInterval(info.currentUpdateInterval());
+                    tabViewModel.setLastGateOpenEvent(info.countDown());
+                    tabViewModel.setCurrentState(info.currentState());
+                }
             }
         }
     }
@@ -322,6 +322,6 @@ public class MainActivity extends AppCompatActivity implements
 
     public void stopApplication() {
         mService.removeLocationUpdates(false);
-        this.finish();
+        this.finishAndRemoveTask();
     }
 }

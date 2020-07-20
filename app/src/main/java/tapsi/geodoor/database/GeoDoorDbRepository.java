@@ -35,6 +35,10 @@ public class GeoDoorDbRepository {
         return config;
     }
 
+    public Config getSynConfig() {
+        return configDao.getSyncConfig();
+    }
+
     private static class InsertConfigAsyncTask extends AsyncTask<Config, Void, Void> {
 
         private ConfigDao configDao;

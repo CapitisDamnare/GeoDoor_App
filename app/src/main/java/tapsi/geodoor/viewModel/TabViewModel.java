@@ -41,6 +41,10 @@ public class TabViewModel extends AndroidViewModel {
         repository.update(config);
     }
 
+    public Config getSynConfig() {
+        return repository.getSynConfig();
+    }
+
     public LiveData<Boolean> getAutoMode(){
         return isAutoMode;
     }

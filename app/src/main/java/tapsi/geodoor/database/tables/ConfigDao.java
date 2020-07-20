@@ -24,4 +24,7 @@ public interface ConfigDao {
 
     @Query("SELECT * FROM  config_table WHERE id = 1")
     LiveData<Config> getConfig();
+
+    @Query("SELECT * FROM  config_table WHERE id = 1")
+    Config getSyncConfig();
 }

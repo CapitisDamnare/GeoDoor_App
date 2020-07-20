@@ -78,7 +78,6 @@ public class AutoGateLogic {
                 lastOpenGateEvent = LocalDateTime.now().plusSeconds(30);
                 currentState = TravelState.HOME;
             } else if (lastCalculatedDistance > config.getRadius() && countDown <= 0L) {
-                Log.i(TAG, "Moving Outside!");
                 currentState = TravelState.OUTSIDE;
             }
         }
@@ -125,5 +124,9 @@ public class AutoGateLogic {
         {
             Log.e(TAG, "Update config error:\n" + ex);
         }
+    }
+
+    public void resetState() {
+        currentState = TravelState.HOME;
     }
 }

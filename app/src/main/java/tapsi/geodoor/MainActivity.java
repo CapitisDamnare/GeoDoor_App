@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -268,6 +269,7 @@ public class MainActivity extends AppCompatActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+            Log.i(TAG, "Received Location Update");
             if (info != null) {
                 tabViewModel.setDistance(info.distance());
                 tabViewModel.setLastLocation(info.currentLocation());
@@ -289,7 +291,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setButtonsState(boolean requestingLocationUpdates) {
-        Log.i(TAG, "requestingLocationUpdates: " + requestingLocationUpdates);
         tabViewModel.setAutoMode(requestingLocationUpdates);
     }
 
@@ -308,8 +309,13 @@ public class MainActivity extends AppCompatActivity implements
             mService.requestLocationUpdates();
             setButtonsState(true);
         } else {
-            mService.removeLocationUpdates();
+            mService.removeLocationUpdates(true);
             setButtonsState(false);
         }
+    }
+
+    public void stopApplication() {
+        mService.removeLocationUpdates(false);
+        this.finish();
     }
 }

@@ -11,6 +11,7 @@
     <color name="colorDarkBlue">#00388B</color>
     <color name="colorYellow">#D9E421</color>
     <color name="colorGreen">#0CD645</color>
+    <color name="colorRed">#C50824</color>
     <color name="noColor">#00FFFFFF</color>
 
     <color name="tabTextColor">#80FEFEFE</color>

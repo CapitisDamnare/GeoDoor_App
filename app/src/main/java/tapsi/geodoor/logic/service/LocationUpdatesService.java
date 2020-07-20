@@ -30,6 +30,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.nio.channels.Channel;
+
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.R;
 import tapsi.geodoor.logic.AutoGateLogic;
@@ -149,7 +151,7 @@ public class LocationUpdatesService extends Service {
 
         // We got here because the user decided to remove location updates from the notification.
         if (startedFromNotification) {
-            removeLocationUpdates();
+            removeLocationUpdates(true);
             stopSelf();
         } else {
             autoGateLogic = new AutoGateLogic(getApplicationContext());
@@ -227,11 +229,12 @@ public class LocationUpdatesService extends Service {
      * Removes location updates. Note that in this sample we merely log the
      * {@link SecurityException}.
      */
-    public void removeLocationUpdates() {
+    public void removeLocationUpdates(boolean saveInSharedPref) {
         Log.i(TAG, "Removing location updates");
         try {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-            Utils.setRequestingLocationUpdates(this, false);
+            if (saveInSharedPref)
+                Utils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
             Utils.setRequestingLocationUpdates(this, true);
@@ -245,8 +248,6 @@ public class LocationUpdatesService extends Service {
     private Notification getNotification() {
         Intent intent = new Intent(this, LocationUpdatesService.class);
 
-        CharSequence text = Utils.getLocationText(mLocation);
-
         // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
         intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
 
@@ -255,26 +256,23 @@ public class LocationUpdatesService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // The PendingIntent to launch activity.
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        notificationIntent.setAction(Intent.ACTION_MAIN);
+        notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
+                notificationIntent, 0);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .addAction(R.drawable.ic_launch, getString(R.string.launch_activity),
-                        activityPendingIntent)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
                         servicePendingIntent)
-                .setContentText(text)
-                .setContentTitle(Utils.getLocationTitle(this))
+                .setContentIntent(activityPendingIntent)
+                .setContentText(getString(R.string.notification_text))
+                .setContentTitle(getString(R.string.notification_title))
                 .setOngoing(true)
-                .setPriority(Notification.PRIORITY_HIGH)
+                .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setTicker(text)
+                .setTicker(getString(R.string.app_name))
                 .setWhen(System.currentTimeMillis());
-
-        // Set the Channel ID for Android O.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId(CHANNEL_ID); // Channel ID
-        }
 
         return builder.build();
     }
@@ -299,6 +297,8 @@ public class LocationUpdatesService extends Service {
 
     private void onNewLocation(Location location) {
         mLocation = location;
+
+        // Get progressive location updates.
         long newUpdateIinterval = autoGateLogic.getProgressiveTimeOutInMillis(location);
         if (newUpdateIinterval != updateInterval)
         {
@@ -315,6 +315,7 @@ public class LocationUpdatesService extends Service {
             }
         }
 
+        // Notify auto gate logic to open the gate.
         autoGateLogic.updateLocation(location);
 
         LocationUpdateServiceInfo info =
@@ -332,9 +333,9 @@ public class LocationUpdatesService extends Service {
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
         // Update notification content if running as a foreground service.
-        if (serviceIsRunningInForeground(this)) {
-            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
-        }
+//        if (serviceIsRunningInForeground(this)) {
+//            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+//        }
     }
 
     /**

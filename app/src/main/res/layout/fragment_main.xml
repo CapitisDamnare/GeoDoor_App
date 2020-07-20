@@ -88,8 +88,8 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center"
-                        android:text="@string/status_connection"
-                        android:textColor="@color/colorGreen"
+                        android:text="@string/status_connection_disconnected"
+                        android:textColor="@color/colorRed"
                         android:textSize="14sp" />
                 </androidx.cardview.widget.CardView>
 

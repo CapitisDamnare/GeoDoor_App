@@ -15,7 +15,8 @@
     <string name="status_mode_textView_auto">AUTOMATIC MODE ACTIVE</string>
     <string name="status_mode_textView_man">MANUAL MODE ACTIVE</string>
     <string name="status_door">DOOR CLOSED</string>
-    <string name="status_connection">CONNECTED</string>
+    <string name="status_connection_connected">CONNECTED</string>
+    <string name="status_connection_disconnected">DISCONNECTED</string>
     <string name="status_Distance" translatable="false">- km</string>
     <string name="status_Distance_Description">Distance</string>
     <string name="status_gpsTimeOut" translatable="false">- s</string>
@@ -62,8 +63,6 @@
     <string name="settings_save">Save</string>
     <string name="settings_cancel">Cancel</string>
 
-
-
     <string name="launch_activity" translatable="false">Launch activity</string>
     <string name="location_unknown" translatable="false">Location unknown</string>
     <string name="location_updates_label" translatable="false">Location Updates</string>
@@ -73,7 +72,9 @@
         functionality.</string>
     <string name="ok" translatable="false">OK</string>
     <string name="request_location_updates" translatable="false">Request location updates</string>
-    <string name="remove_location_updates" translatable="false">Remove location updates</string>
 
+    <string name="remove_location_updates">Stop Service</string>
     <string name="location_updated" translatable="false">Location Updated: %1$s</string>
+    <string name="notification_text">Click to launch app</string>
+    <string name="notification_title">GeoDoor Service</string>
 </resources>

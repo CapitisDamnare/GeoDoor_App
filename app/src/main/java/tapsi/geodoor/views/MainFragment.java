@@ -45,6 +45,8 @@ public class MainFragment extends Fragment {
     private Timer timer;
     private long countDown;
 
+    private boolean showStandardValues = false;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -70,20 +72,30 @@ public class MainFragment extends Fragment {
 
     private void initLiveDataObservers() {
         tabViewModel.getAutoMode().observe(getViewLifecycleOwner(), isAutoMode -> {
-            Log.i(TAG, "getAutoMode().observe: " + isAutoMode);
             TextView statusMode = getView().findViewById(R.id.status_mode_textView);
-            if(isAutoMode)
+            if(isAutoMode) {
                 statusMode.setText(R.string.status_mode_textView_auto);
-            else
+                showStandardValues = false;
+            }
+            else {
                 statusMode.setText(R.string.status_mode_textView_man);
+                showStandardValues = true;
+                setStandardValues();
+            }
         });
 
         tabViewModel.getDistance().observe(getViewLifecycleOwner(), distance -> {
+            if (showStandardValues)
+                return;
+
             TextView statusDistance = getView().findViewById(R.id.status_Distance);
             statusDistance.setText(formatDistance(distance));
         });
 
         tabViewModel.getLastLocation().observe(getViewLifecycleOwner(), lastLocation -> {
+            if (showStandardValues)
+                return;
+
             TextView statusSpeed = getView().findViewById(R.id.status_Speed);
             statusSpeed.setText(formatSpeed(lastLocation.getSpeed()));
 
@@ -93,12 +105,18 @@ public class MainFragment extends Fragment {
         });
 
         tabViewModel.getUpdateInterval().observe(getViewLifecycleOwner(), updateInterval -> {
+            if (showStandardValues)
+                return;
+
             TextView statusGpsTimeout = getView().findViewById(R.id.status_gpsTimeout);
             String text = updateInterval / 1000 + " s";
             statusGpsTimeout.setText(text);
         });
 
         tabViewModel.getLastGateOpenEvent().observe(getViewLifecycleOwner(), countDown -> {
+            if (showStandardValues)
+                return;
+
             if (!isTimerRunning) {
                 timer = new Timer();
                 startCountDown(countDown);
@@ -106,6 +124,9 @@ public class MainFragment extends Fragment {
         });
 
         tabViewModel.getCurrentState().observe(getViewLifecycleOwner(), currentState -> {
+            if (showStandardValues)
+                return;
+
             TextView textView = getView().findViewById(R.id.status_Lock);
             if (currentState.equals(AutoGateLogic.TravelState.HOME))
                 textView.setText(R.string.status_Lock_On);
@@ -239,4 +260,16 @@ public class MainFragment extends Fragment {
            textView.setText(text);
         }
     };
+
+    private void setStandardValues() {
+        TextView statusDistance = getView().findViewById(R.id.status_Distance);
+        TextView statusSpeed = getView().findViewById(R.id.status_Speed);
+        TextView statusAccuracy = getView().findViewById(R.id.status_Accuracy);
+        TextView statusGpsTimeout = getView().findViewById(R.id.status_gpsTimeout);
+
+        statusDistance.setText(R.string.status_Distance);
+        statusSpeed.setText(R.string.status_Speed);
+        statusAccuracy.setText(R.string.status_Accuracy);
+        statusGpsTimeout.setText(R.string.status_gpsTimeOut);
+    }
 }

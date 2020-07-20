@@ -106,11 +106,7 @@ public class NavigationMenuController {
     }
 
     private void closeApplication() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mainActivity.finishAndRemoveTask();
-        } else {
-            mainActivity.finishAffinity();
-        }
+        mainActivity.stopApplication();
     }
 
     private void hideApplication() {

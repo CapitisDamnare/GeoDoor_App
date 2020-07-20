@@ -9,7 +9,7 @@
     <string name="controls">Steuerung</string>
     <string name="status_mode_textView_auto">AUTOMATISCHER MODUS AKTIV</string>
     <string name="status_door">TOR GESCHLOSSEN</string>
-    <string name="status_connection">VERBUNDEN</string>
+    <string name="status_connection_connected">VERBUNDEN</string>
     <string name="status_Distance_Description">Distanz</string>
     <string name="status_gpsTimeOut_Description">GPS Interval</string>
     <string name="status_Speed_Description">Geschwindigkeit</string>
@@ -34,4 +34,8 @@
     <string name="status_mode_textView_man">MANUELLER MODUS AKTIV</string>
     <string name="controls_btn_mode_activate_man">AKTIVIERE MAN MODE</string>
     <string name="status_Lock_On">EIN</string>
+    <string name="status_connection_disconnected">NICHT VERBUNDEN</string>
+    <string name="notification_text">Klicke um App zu öffnen.</string>
+    <string name="remove_location_updates">Dienst Beenden</string>
+    <string name="notification_title">GeoDoor Dienst</string>
 </resources>

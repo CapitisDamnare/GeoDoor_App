@@ -1,13 +1,7 @@
-package tapsi.geodoor.logic.service;
+package tapsi.geodoor.services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Location;
-
-import java.text.DateFormat;
-import java.util.Date;
-
-import tapsi.geodoor.R;
 
 public class Utils {
 

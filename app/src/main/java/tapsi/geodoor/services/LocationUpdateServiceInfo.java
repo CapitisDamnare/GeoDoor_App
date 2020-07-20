@@ -1,4 +1,4 @@
-package tapsi.geodoor.logic.service;
+package tapsi.geodoor.services;
 
 import android.location.Location;
 import android.os.Parcelable;
@@ -15,7 +15,7 @@ import tapsi.geodoor.logic.AutoGateLogic;
     public abstract Long countDown();
     public abstract AutoGateLogic.TravelState currentState();
 
-    static Builder builder() {
+    public static Builder builder() {
         return new $AutoValue_LocationUpdateServiceInfo.Builder();
     }
 

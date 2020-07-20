@@ -9,9 +9,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -19,7 +17,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -36,12 +34,12 @@ import com.andexert.library.BuildConfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import tapsi.geodoor.logic.service.LocationUpdateServiceInfo;
-import tapsi.geodoor.logic.service.LocationUpdatesService;
-import tapsi.geodoor.logic.service.Utils;
-import tapsi.geodoor.model.NavigationMenuController;
-import tapsi.geodoor.model.PagerAdapter;
-import tapsi.geodoor.model.TabViewModel;
+import tapsi.geodoor.services.LocationUpdateServiceInfo;
+import tapsi.geodoor.services.LocationUpdatesService;
+import tapsi.geodoor.services.Utils;
+import tapsi.geodoor.controller.NavigationMenuController;
+import tapsi.geodoor.controller.PagerAdapter;
+import tapsi.geodoor.viewModel.TabViewModel;
 import tapsi.geodoor.views.ControlFragment;
 
 public class MainActivity extends AppCompatActivity implements
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationMenuController navigationMenuController;
     private PagerAdapter pagerAdapter;
     private TabViewModel tabViewModel;
+    private MainActivity mainActivity;
 
     private String TAG = "tapsi.MainActivity";
 
@@ -78,6 +77,12 @@ public class MainActivity extends AppCompatActivity implements
             if (Utils.requestingLocationUpdates(getApplicationContext())) {
                 mService.requestLocationUpdates();
             }
+
+            tabViewModel.getConfig().observe(mainActivity, config -> {
+                if (config!= null) {
+                    mService.updateConfig(config);
+                }
+            });
         }
 
         @Override
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myReceiver = new MyReceiver();
+        mainActivity = this;
 
         setContentView(R.layout.activity_main);
         setupTabLayout();

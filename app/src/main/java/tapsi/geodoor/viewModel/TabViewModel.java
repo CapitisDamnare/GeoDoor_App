@@ -1,18 +1,23 @@
-package tapsi.geodoor.model;
+package tapsi.geodoor.viewModel;
 
+import android.app.Application;
 import android.location.Location;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import java.time.LocalDateTime;
-
+import tapsi.geodoor.database.GeoDoorDbRepository;
+import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
 
-public class TabViewModel extends ViewModel {
+public class TabViewModel extends AndroidViewModel {
 
     private String TAG = "tapsi.tabViewModel";
+    private GeoDoorDbRepository repository;
+
+    private LiveData<Config> config;
 
     private MutableLiveData<Boolean> isAutoMode = new MutableLiveData<>();
 
@@ -21,6 +26,20 @@ public class TabViewModel extends ViewModel {
     private MutableLiveData<Long> updateInterval = new MutableLiveData<>();
     private MutableLiveData<Long> countDown = new MutableLiveData<>();
     private MutableLiveData<AutoGateLogic.TravelState> currentState = new MutableLiveData<>();
+
+    public TabViewModel(@NonNull Application application) {
+        super(application);
+        repository = new GeoDoorDbRepository(application);
+        config = repository.getConfig();
+    }
+
+    public LiveData<Config> getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        repository.update(config);
+    }
 
     public LiveData<Boolean> getAutoMode(){
         return isAutoMode;

@@ -1,4 +1,4 @@
-package tapsi.geodoor.model;
+package tapsi.geodoor.controller;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

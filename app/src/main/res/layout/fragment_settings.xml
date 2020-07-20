@@ -60,7 +60,7 @@
                     app:hintTextAppearance="@style/TextLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textEditName"
+                        android:id="@+id/txtEditName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/colorBlue"
@@ -119,6 +119,7 @@
                     app:hintTextAppearance="@style/TextLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditIpAddress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/colorBlue"
@@ -196,6 +197,8 @@
                         app:hintTextAppearance="@style/TextLabel">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtEditLatitude"
+                            android:enabled="true"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorBlue"
@@ -256,6 +259,8 @@
                         app:hintTextAppearance="@style/TextLabel">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtEditLongitude"
+                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorBlue"
@@ -316,6 +321,8 @@
                         app:hintTextAppearance="@style/TextLabel">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtEditAltitude"
+                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorBlue"
@@ -377,6 +384,7 @@
                     app:hintTextAppearance="@style/TextLabel">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditRadius"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/colorBlue"
@@ -399,6 +407,8 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_buttons"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.5">
@@ -417,7 +427,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/controls_btn_cancel"
+                        android:id="@+id/controls_btn_save"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorBlue"
@@ -445,7 +455,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/controls_btn_door"
+                        android:id="@+id/controls_btn_cancel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorBlue"

@@ -2,7 +2,6 @@ package tapsi.geodoor.views;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import tapsi.geodoor.R;
-import tapsi.geodoor.model.TabViewModel;
+import tapsi.geodoor.viewModel.TabViewModel;
 
 /**
  * A simple {@link Fragment} subclass.

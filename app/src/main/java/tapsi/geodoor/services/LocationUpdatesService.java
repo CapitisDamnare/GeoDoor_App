@@ -1,12 +1,10 @@
-package tapsi.geodoor.logic.service;
+package tapsi.geodoor.services;
 
-import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -30,10 +28,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.nio.channels.Channel;
-
 import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.R;
+import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
 
 public class LocationUpdatesService extends Service {
@@ -171,7 +168,6 @@ public class LocationUpdatesService extends Service {
         // Called when a client (MainActivity in case of this sample) comes to the foreground
         // and binds with this service. The service should cease to be a foreground service
         // when that happens.
-        Log.i(TAG, "in onBind()");
         stopForeground(true);
         mChangingConfiguration = false;
         return mBinder;
@@ -242,6 +238,11 @@ public class LocationUpdatesService extends Service {
         }
     }
 
+    public void updateConfig(Config config) {
+        if (autoGateLogic != null)
+            autoGateLogic.updateConfig(config);
+    }
+
     /**
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
@@ -296,6 +297,9 @@ public class LocationUpdatesService extends Service {
     }
 
     private void onNewLocation(Location location) {
+        if (autoGateLogic.getConfig() == null)
+            return;
+
         mLocation = location;
 
         // Get progressive location updates.
@@ -331,11 +335,6 @@ public class LocationUpdatesService extends Service {
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(EXTRA_LOCATION, info);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-
-        // Update notification content if running as a foreground service.
-//        if (serviceIsRunningInForeground(this)) {
-//            mNotificationManager.notify(NOTIFICATION_ID, getNotification());
-//        }
     }
 
     /**
@@ -356,24 +355,5 @@ public class LocationUpdatesService extends Service {
         public LocationUpdatesService getService() {
             return LocationUpdatesService.this;
         }
-    }
-
-    /**
-     * Returns true if this is a foreground service.
-     *
-     * @param context The {@link Context}.
-     */
-    public boolean serviceIsRunningInForeground(Context context) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(
-                Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(
-                Integer.MAX_VALUE)) {
-            if (getClass().getName().equals(service.service.getClassName())) {
-                if (service.foreground) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

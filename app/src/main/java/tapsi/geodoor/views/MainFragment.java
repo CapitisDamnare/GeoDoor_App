@@ -3,7 +3,6 @@ package tapsi.geodoor.views;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import java.util.TimerTask;
 
 import tapsi.geodoor.R;
 import tapsi.geodoor.logic.AutoGateLogic;
-import tapsi.geodoor.model.TabViewModel;
+import tapsi.geodoor.viewModel.TabViewModel;
 
 /**
  * A simple {@link Fragment} subclass.

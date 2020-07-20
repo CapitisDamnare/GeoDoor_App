@@ -1,4 +1,4 @@
-package tapsi.geodoor.logic.service;
+package tapsi.geodoor.services;
 
 import android.location.Location;
 

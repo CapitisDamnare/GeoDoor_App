@@ -7,11 +7,15 @@ import android.util.Log;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import tapsi.geodoor.database.tables.Config;
+
 public class AutoGateLogic {
 
     private static final String TAG = "tapsi.autoGateLogic";
 
     private Context mContext;
+
+    private Config config;
 
     private LocalDateTime lastOpenGateEvent = LocalDateTime.MIN;
     private long currentUpdateInterval;
@@ -19,8 +23,6 @@ public class AutoGateLogic {
     private TravelState currentState;
 
     private Location homeLocation;
-    private int homeRadius = 30;
-    private final float neededAccuracy = 20;
 
     public long getCountDown() {
         if (lastOpenGateEvent.equals(LocalDateTime.MIN))
@@ -47,6 +49,10 @@ public class AutoGateLogic {
         return currentState;
     }
 
+    public Config getConfig() {
+        return config;
+    }
+
     public enum TravelState {
         HOME,
         OUTSIDE
@@ -54,6 +60,7 @@ public class AutoGateLogic {
 
     public AutoGateLogic(Context context) {
         mContext = context;
+        config = null;
         currentState = TravelState.HOME;
         homeLocation = new Location("");
         homeLocation.setLatitude(47.047671);
@@ -61,16 +68,16 @@ public class AutoGateLogic {
     }
 
     public void updateLocation(Location location) {
-        if (location != null && location.getAccuracy() <= neededAccuracy) {
+        if (location != null && location.getAccuracy() <= config.getAccuracy()) {
             lastCalculatedDistance = location.distanceTo(homeLocation);
             long countDown = getCountDown();
-            if (lastCalculatedDistance < homeRadius
+            if (lastCalculatedDistance < config.getRadius()
                     && currentState.equals(TravelState.OUTSIDE)
                     && countDown <= 0L) {
                 Log.i(TAG, "Open Gate!");
                 lastOpenGateEvent = LocalDateTime.now().plusSeconds(30);
                 currentState = TravelState.HOME;
-            } else if (lastCalculatedDistance > homeRadius && countDown <= 0L) {
+            } else if (lastCalculatedDistance > config.getRadius() && countDown <= 0L) {
                 Log.i(TAG, "Moving Outside!");
                 currentState = TravelState.OUTSIDE;
             }
@@ -105,5 +112,18 @@ public class AutoGateLogic {
             currentUpdateInterval = 30000;
 
         return currentUpdateInterval;
+    }
+
+    public void updateConfig(Config config) {
+        Log.i(TAG, "Updated service config!\n: " + config);
+        this.config = config;
+        try {
+            homeLocation.setLatitude(Double.parseDouble(config.getLatitude()));
+            homeLocation.setLongitude(Double.parseDouble(config.getLongitude()));
+            homeLocation.setAltitude(Double.parseDouble(config.getAltitude()));
+        } catch (Exception ex)
+        {
+            Log.e(TAG, "Update config error:\n" + ex);
+        }
     }
 }

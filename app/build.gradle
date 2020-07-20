@@ -24,7 +24,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.2.0"
-    def room_version = "2.3.0-alpha01"
+    def room_version = "2.2.5"
     def preference_version = "1.1.1"
     def autoValueVersion = "1.7.4"
 
@@ -57,7 +57,7 @@ dependencies {
     // Androidx preference
     implementation "androidx.preference:preference:$preference_version"
 
-    // Use 'api' rather than 'compile' for Android or java-library projects.
+    // Auto Value
     implementation "com.google.auto.value:auto-value-annotations:${autoValueVersion}"
     annotationProcessor "com.google.auto.value:auto-value:${autoValueVersion}"
 

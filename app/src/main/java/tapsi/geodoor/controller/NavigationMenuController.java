@@ -1,6 +1,5 @@
-package tapsi.geodoor.model;
+package tapsi.geodoor.controller;
 
-import android.os.Build;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.view.Menu;

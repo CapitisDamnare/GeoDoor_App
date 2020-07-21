@@ -38,4 +38,8 @@
     <string name="notification_text">Klicke um App zu öffnen.</string>
     <string name="remove_location_updates">Dienst Beenden</string>
     <string name="notification_title">GeoDoor Dienst</string>
+    <string name="map_btn_current_position">Zeige aktuelle Position</string>
+    <string name="map_btn_save_position">Speicher aktuelle Position</string>
+    <string name="map_current">Gespeichert</string>
+    <string name="map_shown">Aktuell</string>
 </resources>

@@ -40,10 +40,12 @@ import tapsi.geodoor.services.LocationUpdatesService;
 import tapsi.geodoor.services.Utils;
 import tapsi.geodoor.viewModel.TabViewModel;
 import tapsi.geodoor.views.ControlFragment;
+import tapsi.geodoor.views.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener,
-        ControlFragment.ControlFragmentListener {
+        ControlFragment.ControlFragmentListener,
+        SettingsFragment.SettingsFragmentListener {
 
     private NavigationMenuController navigationMenuController;
     private PagerAdapter pagerAdapter;
@@ -306,6 +308,11 @@ public class MainActivity extends AppCompatActivity implements
             ControlFragment controlFragment = (ControlFragment) fragment;
             controlFragment.setOnControlFragmentListener(this);
         }
+
+        if (fragment instanceof SettingsFragment) {
+            SettingsFragment settingsFragment = (SettingsFragment) fragment;
+            settingsFragment.setOnSettingsFragmentListener(this);
+        }
     }
 
     @Override
@@ -317,6 +324,23 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             mService.removeLocationUpdates(true);
             setButtonsState(false);
+        }
+    }
+
+    @Override
+    public void onBtnMapOpen() {
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+            }
+            if (resultCode == RESULT_CANCELED) {
+            }
         }
     }
 

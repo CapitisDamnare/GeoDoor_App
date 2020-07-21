@@ -77,4 +77,8 @@
     <string name="location_updated" translatable="false">Location Updated: %1$s</string>
     <string name="notification_text">Click to launch app</string>
     <string name="notification_title">GeoDoor Service</string>
+    <string name="map_btn_current_position">Show current position</string>
+    <string name="map_btn_save_position">Save current postion</string>
+    <string name="map_current">Saved</string>
+    <string name="map_shown">Current</string>
 </resources>

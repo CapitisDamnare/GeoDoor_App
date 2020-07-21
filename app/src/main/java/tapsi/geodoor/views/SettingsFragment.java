@@ -31,7 +31,9 @@ public class SettingsFragment extends Fragment {
     private String TAG = "tapsi.geodoor.views.SettingsFragment";
     private Config currentConfig;
 
-    TabViewModel tabViewModel;
+    private SettingsFragmentListener callback;
+
+    private TabViewModel tabViewModel;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -40,6 +42,14 @@ public class SettingsFragment extends Fragment {
     public static SettingsFragment newInstance() {
         SettingsFragment settingsFragment = new SettingsFragment();
         return settingsFragment;
+    }
+
+    public interface SettingsFragmentListener {
+        void onBtnMapOpen();
+    }
+
+    public void setOnSettingsFragmentListener(SettingsFragment.SettingsFragmentListener callback) {
+        this.callback = callback;
     }
 
     @Override
@@ -84,6 +94,7 @@ public class SettingsFragment extends Fragment {
         controls_btn_cancel.setOnClickListener(v -> {
             applyCurrentConfig();
             setButtonBarVisibility(View.INVISIBLE);
+            callback.onBtnMapOpen();
         });
 
         controls_btn_save.setOnTouchListener((view, motionEvent) -> {

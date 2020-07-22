@@ -72,11 +72,10 @@ public class MainFragment extends Fragment {
     private void initLiveDataObservers() {
         tabViewModel.getAutoMode().observe(getViewLifecycleOwner(), isAutoMode -> {
             TextView statusMode = getView().findViewById(R.id.status_mode_textView);
-            if(isAutoMode) {
+            if (isAutoMode) {
                 statusMode.setText(R.string.status_mode_textView_auto);
                 showStandardValues = false;
-            }
-            else {
+            } else {
                 statusMode.setText(R.string.status_mode_textView_man);
                 showStandardValues = true;
                 setStandardValues();
@@ -135,7 +134,7 @@ public class MainFragment extends Fragment {
     }
 
     public void doorAnimationOpen() {
-        if(null == getView())
+        if (null == getView())
             return;
 
         doorAnimation1 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_open);
@@ -169,7 +168,7 @@ public class MainFragment extends Fragment {
     }
 
     public void doorAnimationClose() {
-        if(null == getView())
+        if (null == getView())
             return;
 
         doorAnimation1 = AnimationUtils.loadAnimation(getView().getContext(), R.anim.anim_translate_door_close);
@@ -213,7 +212,7 @@ public class MainFragment extends Fragment {
         return str_num;
     }
 
-    private String formatDistance (float meter) {
+    private String formatDistance(float meter) {
 
         boolean km = false;
         if (meter > 999.99) {
@@ -254,9 +253,11 @@ public class MainFragment extends Fragment {
 
     public Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
-           TextView textView = getView().findViewById(R.id.status_LockTime);
-           String text = countDown + " s";
-           textView.setText(text);
+            if (getView() == null)
+                return;
+            TextView textView = getView().findViewById(R.id.status_LockTime);
+            String text = countDown + " s";
+            textView.setText(text);
         }
     };
 

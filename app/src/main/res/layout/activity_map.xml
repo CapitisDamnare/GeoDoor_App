@@ -171,6 +171,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/txtViewSavedLocation"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="1sp"
@@ -222,6 +223,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/txtViewCurrentMarkerLocation"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="1sp"

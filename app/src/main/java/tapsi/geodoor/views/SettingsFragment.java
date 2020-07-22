@@ -1,6 +1,7 @@
 package tapsi.geodoor.views;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,7 +47,7 @@ public class SettingsFragment extends Fragment {
     }
 
     public interface SettingsFragmentListener {
-        void onBtnMapOpen();
+        void onBtnMapOpen(Location location);
     }
 
     public void setOnSettingsFragmentListener(SettingsFragment.SettingsFragmentListener callback) {
@@ -85,6 +87,7 @@ public class SettingsFragment extends Fragment {
     private void initButtons() {
         Button controls_btn_save = getView().findViewById(R.id.controls_btn_save);
         Button controls_btn_cancel = getView().findViewById(R.id.controls_btn_cancel);
+        Button controls_btn_map = getView().findViewById(R.id.controls_btn_map);
 
         controls_btn_save.setOnClickListener(v -> {
             saveConfig();
@@ -94,7 +97,13 @@ public class SettingsFragment extends Fragment {
         controls_btn_cancel.setOnClickListener(v -> {
             applyCurrentConfig();
             setButtonBarVisibility(View.INVISIBLE);
-            callback.onBtnMapOpen();
+        });
+        controls_btn_map.setOnClickListener(v -> {
+            Location location = new Location("");
+            location.setLatitude(Double.parseDouble(currentConfig.getLatitude()));
+            location.setLongitude(Double.parseDouble(currentConfig.getLongitude()));
+            location.setAltitude(Double.parseDouble(currentConfig.getAltitude()));
+            callback.onBtnMapOpen(location);
         });
 
         controls_btn_save.setOnTouchListener((view, motionEvent) -> {
@@ -106,16 +115,19 @@ public class SettingsFragment extends Fragment {
             startAnimation(view, motionEvent);
             return false;
         });
+
+        controls_btn_map.setOnTouchListener((view, motionEvent) -> {
+            startAnimation(view, motionEvent);
+            return false;
+        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void initTextEdit() {
         TextInputEditText txtEditName = getView().findViewById(R.id.txtEditName);
         TextInputEditText txtEditIpAddress = getView().findViewById(R.id.txtEditIpAddress);
-        TextInputEditText txtEditLatitude = getView().findViewById(R.id.txtEditLatitude);
-        TextInputEditText txtEditLongitude = getView().findViewById(R.id.txtEditLongitude);
-        TextInputEditText txtEditAltitude = getView().findViewById(R.id.txtEditAltitude);
         TextInputEditText txtEditRadius = getView().findViewById(R.id.txtEditRadius);
+        TextInputEditText txtEditAccuracy = getView().findViewById(R.id.txtEditAccuracy);
 
         txtEditName.setOnTouchListener((view, motionEvent) -> {
             setButtonBarVisibility(View.VISIBLE);
@@ -127,22 +139,12 @@ public class SettingsFragment extends Fragment {
             return false;
         });
 
-        txtEditLatitude.setOnTouchListener((view, motionEvent) -> {
-            setButtonBarVisibility(View.VISIBLE);
-            return false;
-        });
-
-        txtEditLongitude.setOnTouchListener((view, motionEvent) -> {
-            setButtonBarVisibility(View.VISIBLE);
-            return false;
-        });
-
-        txtEditAltitude.setOnTouchListener((view, motionEvent) -> {
-            setButtonBarVisibility(View.VISIBLE);
-            return false;
-        });
-
         txtEditRadius.setOnTouchListener((view, motionEvent) -> {
+            setButtonBarVisibility(View.VISIBLE);
+            return false;
+        });
+
+        txtEditAccuracy.setOnTouchListener((view, motionEvent) -> {
             setButtonBarVisibility(View.VISIBLE);
             return false;
         });
@@ -170,14 +172,15 @@ public class SettingsFragment extends Fragment {
         txtEditName.setText(currentConfig.getName());
         TextInputEditText txtEditIpAddress = getView().findViewById(R.id.txtEditIpAddress);
         txtEditIpAddress.setText(currentConfig.getIpAddress());
-        TextInputEditText txtEditLatitude = getView().findViewById(R.id.txtEditLatitude);
-        txtEditLatitude.setText(currentConfig.getLatitude());
-        TextInputEditText txtEditLongitude = getView().findViewById(R.id.txtEditLongitude);
-        txtEditLongitude.setText(currentConfig.getLongitude());
-        TextInputEditText textEditAltitude = getView().findViewById(R.id.txtEditAltitude);
-        textEditAltitude.setText(currentConfig.getAltitude());
         TextInputEditText txtEditRadius = getView().findViewById(R.id.txtEditRadius);
         txtEditRadius.setText(String.valueOf(currentConfig.getRadius()));
+        TextInputEditText txtEditAccuracy = getView().findViewById(R.id.txtEditAccuracy);
+        txtEditAccuracy.setText(String.valueOf(currentConfig.getAccuracy()));
+
+        TextView txtViewLatitude = getView().findViewById(R.id.txtViewLatitude);
+        txtViewLatitude.setText(currentConfig.getLatitude());
+        TextView txtViewLongitude = getView().findViewById(R.id.txtViewLongitude);
+        txtViewLongitude.setText(currentConfig.getLongitude());
     }
 
     private void saveConfig() {
@@ -185,14 +188,10 @@ public class SettingsFragment extends Fragment {
         currentConfig.setName(String.valueOf(txtEditName.getText()));
         TextInputEditText txtEditIpAddress = getView().findViewById(R.id.txtEditIpAddress);
         currentConfig.setIpAddress(String.valueOf(txtEditIpAddress.getText()));
-        TextInputEditText txtEditLatitude = getView().findViewById(R.id.txtEditLatitude);
-        currentConfig.setLatitude(String.valueOf(txtEditLatitude.getText()));
-        TextInputEditText txtEditLongitude = getView().findViewById(R.id.txtEditLongitude);
-        currentConfig.setLongitude(String.valueOf(txtEditLongitude.getText()));
-        TextInputEditText txtEditAltitude = getView().findViewById(R.id.txtEditAltitude);
-        currentConfig.setAltitude(String.valueOf(txtEditAltitude.getText()));
         TextInputEditText txtEditRadius = getView().findViewById(R.id.txtEditRadius);
         currentConfig.setRadius(Integer.parseInt(String.valueOf(txtEditRadius.getText())));
+        TextInputEditText txtEditAccuracy = getView().findViewById(R.id.txtEditAccuracy);
+        currentConfig.setAccuracy(Float.parseFloat(String.valueOf(txtEditAccuracy.getText())));
     }
 
     private void setButtonBarVisibility(int visibility) {

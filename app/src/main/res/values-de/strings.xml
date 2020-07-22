@@ -42,4 +42,7 @@
     <string name="map_btn_save_position">Speicher aktuelle Position</string>
     <string name="map_current">Gespeichert</string>
     <string name="map_shown">Aktuell</string>
+    <string name="settings_location">Wähle Koordinaten</string>
+    <string name="settings_accuracy">MIN. GENAUIGKEIT [m]</string>
+    <string name="settings_accuracy_hint">20</string>
 </resources>

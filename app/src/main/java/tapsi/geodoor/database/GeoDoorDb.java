@@ -53,7 +53,7 @@ public abstract class GeoDoorDb extends RoomDatabase {
                     "1.1.1.1",
                     "47.01234567",
                     "14.01231122",
-                    "424",
+                    "400",
                     200,
                     20
             ));

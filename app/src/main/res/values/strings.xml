@@ -54,12 +54,14 @@
     <string name="settings_long_hint" translatable="false">14.01231122</string>
     <string name="settings_alt_hint" translatable="false">424</string>
     <string name="settings_radius_hint" translatable="false">200</string>
+    <string name="settings_accuracy">MIN. ACCURACY [m]</string>
 
     <string name="dialog_ok" translatable="false">OK</string>
     <string name="dialog_message1">Location permission: Necessary to get gps data in auto mode.</string>
     <string name="dialog_message2">Phone permission: Necessary to get an unique sim id for the GeoDoorServer.</string>
     <string name="dialog_title">Permission Warning:</string>
     <string name="dialog_close">CLOSE</string>
+    <string name="settings_location">Set Location</string>
     <string name="settings_save">Save</string>
     <string name="settings_cancel">Cancel</string>
 
@@ -77,8 +79,10 @@
     <string name="location_updated" translatable="false">Location Updated: %1$s</string>
     <string name="notification_text">Click to launch app</string>
     <string name="notification_title">GeoDoor Service</string>
+
     <string name="map_btn_current_position">Show current position</string>
     <string name="map_btn_save_position">Save current postion</string>
     <string name="map_current">Saved</string>
     <string name="map_shown">Current</string>
+    <string name="settings_accuracy_hint">20</string>
 </resources>

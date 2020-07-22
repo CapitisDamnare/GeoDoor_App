@@ -136,7 +136,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:background="@drawable/border_blue"
             android:orientation="vertical"
             android:weightSum="3">
@@ -149,6 +149,37 @@
                 android:text="Tor Koordinaten:"
                 android:textColor="@color/colorBlue"
                 android:textSize="18sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginEnd="5sp"
+                android:layout_marginBottom="5sp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="5sp">
+
+                <com.andexert.library.RippleView
+                    rv_centered="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/controls_btn_map"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBlue"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/settings_location"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </com.andexert.library.RippleView>
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -188,25 +219,17 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <TextView
+                        android:id="@+id/txtViewLatitude"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="1sp"
                         android:layout_weight="6.5"
-                        android:textColorHint="@color/colorBlue"
-                        app:hintTextAppearance="@style/TextLabel">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txtEditLatitude"
-                            android:enabled="true"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorBlue"
-                            android:hint="@string/settings_lat_hint"
-                            android:singleLine="true"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:gravity="center"
+                        android:text="0.0,0.0"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" >
+                    </TextView>
 
                 </LinearLayout>
 
@@ -250,87 +273,17 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <TextView
+                        android:id="@+id/txtViewLongitude"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_margin="1sp"
                         android:layout_weight="6.5"
-                        android:textColorHint="@color/colorBlue"
-                        app:hintTextAppearance="@style/TextLabel">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txtEditLongitude"
-                            android:enabled="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorBlue"
-                            android:hint="@string/settings_long_hint"
-                            android:singleLine="true"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="5sp"
-                android:layout_marginTop="5sp"
-                android:layout_marginEnd="5sp"
-                android:layout_marginBottom="5sp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="5sp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="2sp"
-                        android:layout_weight="3.5"
-                        app:cardBackgroundColor="@color/colorPrimary"
-                        app:cardCornerRadius="0dp"
-                        app:cardElevation="5sp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/roboto_medium"
-                            android:gravity="center"
-                            android:text="@string/settings_alt"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp" />
-
-                    </androidx.cardview.widget.CardView>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="1sp"
-                        android:layout_weight="6.5"
-                        android:textColorHint="@color/colorBlue"
-                        app:hintTextAppearance="@style/TextLabel">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txtEditAltitude"
-                            android:enabled="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorBlue"
-                            android:hint="@string/settings_alt_hint"
-                            android:singleLine="true"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:gravity="center"
+                        android:text="0.0,0.0"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" >
+                    </TextView>
 
                 </LinearLayout>
 
@@ -389,6 +342,66 @@
                         android:layout_height="match_parent"
                         android:backgroundTint="@color/colorBlue"
                         android:hint="@string/settings_radius_hint"
+                        android:singleLine="true"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="5sp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2sp"
+                    android:layout_weight="3.5"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="5sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="@string/settings_accuracy"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1sp"
+                    android:layout_weight="6.5"
+                    android:textColorHint="@color/colorBlue"
+                    app:hintTextAppearance="@style/TextLabel">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtEditAccuracy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/colorBlue"
+                        android:hint="@string/settings_accuracy_hint"
                         android:singleLine="true"
                         android:textColor="@color/colorWhite"
                         android:textSize="14sp" />

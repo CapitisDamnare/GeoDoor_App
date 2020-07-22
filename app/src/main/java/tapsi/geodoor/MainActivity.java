@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -35,6 +36,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import tapsi.geodoor.controller.NavigationMenuController;
 import tapsi.geodoor.controller.PagerAdapter;
+import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.services.LocationUpdateServiceInfo;
 import tapsi.geodoor.services.LocationUpdatesService;
 import tapsi.geodoor.services.Utils;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             tabViewModel.getConfig().observe(mainActivity, config -> {
-                if (config!= null) {
+                if (config != null) {
                     mService.updateConfig(config);
                 }
             });
@@ -118,9 +120,10 @@ public class MainActivity extends AppCompatActivity implements
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
 
-       // Restore the state of the buttons when the activity (re)launches.
+        // Restore the state of the buttons when the activity (re)launches.
         setButtonsState(Utils.requestingLocationUpdates(this));
 
+        startService(new Intent(this, LocationUpdatesService.class));
         // Bind to the service. If the service is in foreground mode, this signals to the service
         // that since this activity is in the foreground, the service can exit foreground mode.
         bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
@@ -154,6 +157,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onStop();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        //stopService(new Intent(this, LocationUpdatesService.class));
+    }
+
     /**
      * Initializes the {@see TabLayout} with the {@see PagerAdapter}.
      */
@@ -180,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements
      * Returns the current state of the permissions needed.
      */
     private boolean checkPermissions() {
-        return  PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
+        return PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
@@ -277,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra(mService.EXTRA_LOCATION)) {
                 LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+                Log.i(TAG, "MainActivity got LocationUpdate");
                 if (info != null) {
                     tabViewModel.setDistance(info.distance());
                     tabViewModel.setLastLocation(info.currentLocation());
@@ -317,8 +328,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onBtnModeClicked(boolean isAutoMode) {
-        if (isAutoMode)
-        {
+        if (isAutoMode) {
             mService.requestLocationUpdates();
             setButtonsState(true);
         } else {
@@ -328,8 +338,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onBtnMapOpen() {
+    public void onBtnMapOpen(Location location) {
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        intent.putExtra("location", location);
         startActivityForResult(intent, 1);
     }
 
@@ -338,8 +349,20 @@ public class MainActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                Log.i(TAG, "GotResult!");
+
+                Location location = data.getParcelableExtra("result");
+                if (location == null)
+                    return;
+
+                Config config = tabViewModel.getConfig().getValue();
+                config.setLatitude(String.valueOf(location.getLatitude()));
+                config.setLongitude(String.valueOf(location.getLongitude()));
+
+                tabViewModel.setConfig(config);
             }
             if (resultCode == RESULT_CANCELED) {
+                // Do nothing
             }
         }
     }

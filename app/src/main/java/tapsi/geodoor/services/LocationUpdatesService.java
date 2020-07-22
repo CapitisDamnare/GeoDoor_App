@@ -47,6 +47,7 @@ public class LocationUpdatesService extends Service {
     public static final String ACTION_BROADCAST = PACKAGE_NAME + ".broadcast";
 
     public static final String EXTRA_LOCATION = PACKAGE_NAME + ".location";
+    public static final String EXTRA_CURRENT_LOCATION = PACKAGE_NAME + ".currentLocation";
     private static final String EXTRA_STARTED_FROM_NOTIFICATION = PACKAGE_NAME +
             ".started_from_notification";
 
@@ -185,11 +186,14 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public boolean onUnbind(Intent intent) {
+        Log.i(TAG, "A service unbound!");
         // Called when the last client (MainActivity in case of this sample) unbinds from this
         // service. If this method is called due to a configuration change in MainActivity, we
         // do nothing. Otherwise, we make this service a foreground service.
         if (!mChangingConfiguration && Utils.requestingLocationUpdates(this)) {
             startForeground(NOTIFICATION_ID, getNotification());
+        } else {
+            stopSelf();
         }
         return true; // Ensures onRebind() is called when a client re-binds.
     }
@@ -279,6 +283,27 @@ public class LocationUpdatesService extends Service {
                         public void onComplete(@NonNull Task<Location> task) {
                             if (task.isSuccessful() && task.getResult() != null) {
                                 mLocation = task.getResult();
+                            } else {
+                                Log.w(TAG, "Failed to get location.");
+                            }
+                        }
+                    });
+        } catch (SecurityException unlikely) {
+            Log.e(TAG, "Lost location permission." + unlikely);
+        }
+    }
+
+    public void getCurrentLocation() {
+        try {
+            mFusedLocationClient.getLastLocation()
+                    .addOnCompleteListener(new OnCompleteListener<Location>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Location> task) {
+                            if (task.isSuccessful() && task.getResult() != null) {
+                                Location location = task.getResult();
+                                Intent intent = new Intent(ACTION_BROADCAST);
+                                intent.putExtra(EXTRA_CURRENT_LOCATION, location);
+                                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                             } else {
                                 Log.w(TAG, "Failed to get location.");
                             }

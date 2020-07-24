@@ -7,12 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.database.tables.ConfigDao;
 
-@Database(entities = {Config.class}, version = 1)
+@Database(entities = {Config.class}, version = 2)
 public abstract class GeoDoorDb extends RoomDatabase {
 
     private static GeoDoorDb instance;
@@ -23,6 +24,7 @@ public abstract class GeoDoorDb extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     GeoDoorDb.class, "database")
+                    .addMigrations(MIGRATION_1_2)
                     .fallbackToDestructiveMigration()
                     .addCallback(roomCallback)
                     .allowMainThreadQueries()
@@ -39,6 +41,14 @@ public abstract class GeoDoorDb extends RoomDatabase {
         }
     };
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE config_table "
+                    + " ADD COLUMN md5Hash TEXT");
+        }
+    };
+
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private ConfigDao configDao;
 
@@ -50,6 +60,7 @@ public abstract class GeoDoorDb extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
             configDao.insert(new Config(
                     "John Does",
+                    "",
                     "1.1.1.1",
                     "47.01234567",
                     "14.01231122",

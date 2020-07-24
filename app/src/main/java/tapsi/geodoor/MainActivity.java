@@ -37,6 +37,7 @@ import com.google.android.material.tabs.TabLayout;
 import tapsi.geodoor.controller.NavigationMenuController;
 import tapsi.geodoor.controller.PagerAdapter;
 import tapsi.geodoor.database.tables.Config;
+import tapsi.geodoor.retrofit.RetrofitHandler;
 import tapsi.geodoor.services.LocationUpdateServiceInfo;
 import tapsi.geodoor.services.LocationUpdatesService;
 import tapsi.geodoor.services.Utils;
@@ -285,15 +286,26 @@ public class MainActivity extends AppCompatActivity implements
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra(mService.EXTRA_LOCATION)) {
+            if (intent.hasExtra(LocationUpdatesService.EXTRA_LOCATION)) {
                 LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
-                Log.i(TAG, "MainActivity got LocationUpdate");
                 if (info != null) {
+                    Log.i(TAG, "MainActivity got LocationUpdate");
                     tabViewModel.setDistance(info.distance());
                     tabViewModel.setLastLocation(info.currentLocation());
                     tabViewModel.setUpdateInterval(info.currentUpdateInterval());
                     tabViewModel.setLastGateOpenEvent(info.countDown());
                     tabViewModel.setCurrentState(info.currentState());
+                }
+            }
+            if (intent.hasExtra(RetrofitHandler.EXTRA_REGISTER_DATA)) {
+                String data = intent.getStringExtra(RetrofitHandler.EXTRA_REGISTER_DATA);
+                if (data != null) {
+                    Config config = tabViewModel.getConfig().getValue();
+                    if (config != null) {
+                        Log.i(TAG, "MainActivity got md5Hash update");
+                        config.setMd5Hash(data);
+                        tabViewModel.setConfig(config);
+                    }
                 }
             }
         }

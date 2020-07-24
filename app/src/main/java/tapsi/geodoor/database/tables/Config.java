@@ -11,6 +11,8 @@ public class Config {
 
     private String name;
 
+    private String md5Hash;
+
     private String ipAddress;
 
     private String latitude;
@@ -31,6 +33,8 @@ public class Config {
         return name;
     }
 
+    public String getMd5Hash() { return md5Hash; }
+
     public String getIpAddress() {
         return ipAddress;
     }
@@ -43,13 +47,9 @@ public class Config {
         return longitude;
     }
 
-    public String getAltitude() {
-        return altitude;
-    }
+    public String getAltitude() { return altitude; }
 
-    public int getRadius() {
-        return radius;
-    }
+    public int getRadius() { return radius; }
 
     public void setId(int id) {
         this.id = id;
@@ -59,13 +59,13 @@ public class Config {
         this.name = name;
     }
 
+    public void setMd5Hash(String md5Hash) { this.md5Hash = md5Hash; }
+
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
+    public void setLatitude(String latitude) { this.latitude = latitude; }
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
@@ -75,20 +75,15 @@ public class Config {
         this.altitude = altitude;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
-    }
+    public void setRadius(int radius) { this.radius = radius; }
 
-    public float getAccuracy() {
-        return accuracy;
-    }
+    public float getAccuracy() { return accuracy; }
 
-    public void setAccuracy(float accuracy) {
-        this.accuracy = accuracy;
-    }
+    public void setAccuracy(float accuracy) { this.accuracy = accuracy; }
 
-    public Config(String name, String ipAddress, String latitude, String longitude, String altitude, int radius, float accuracy) {
+    public Config(String name, String md5Hash, String ipAddress, String latitude, String longitude, String altitude, int radius, float accuracy) {
         this.name = name;
+        this.md5Hash = md5Hash;
         this.ipAddress = ipAddress;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -97,8 +92,7 @@ public class Config {
         this.accuracy = accuracy;
     }
 
-    public Config()
-    {
+    public Config() {
 
     }
 

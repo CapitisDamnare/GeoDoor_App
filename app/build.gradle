@@ -27,6 +27,7 @@ dependencies {
     def room_version = "2.2.5"
     def preference_version = "1.1.1"
     def autoValueVersion = "1.7.4"
+    def retroFitVersion = "2.9.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -63,4 +64,8 @@ dependencies {
     annotationProcessor "com.google.auto.value:auto-value:${autoValueVersion}"
 
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.8'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${retroFitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retroFitVersion}"
 }

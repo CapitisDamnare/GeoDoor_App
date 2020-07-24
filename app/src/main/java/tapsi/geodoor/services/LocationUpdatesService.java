@@ -32,6 +32,7 @@ import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.R;
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
+import tapsi.geodoor.retrofit.RetrofitHandler;
 
 public class LocationUpdatesService extends Service {
 
@@ -106,6 +107,8 @@ public class LocationUpdatesService extends Service {
      */
     private AutoGateLogic autoGateLogic;
 
+    private RetrofitHandler retrofitHandler;
+
     public LocationUpdatesService() {
     }
 
@@ -122,6 +125,7 @@ public class LocationUpdatesService extends Service {
         };
 
         autoGateLogic = new AutoGateLogic(getApplicationContext());
+        retrofitHandler = new RetrofitHandler();
         createLocationRequest();
         getLastLocation();
 
@@ -238,6 +242,8 @@ public class LocationUpdatesService extends Service {
 
     public void updateConfig(Config config) {
         autoGateLogic.updateConfig(config);
+        retrofitHandler.initHandler(config, getApplicationContext());
+        retrofitHandler.loginUser();
     }
 
     /**

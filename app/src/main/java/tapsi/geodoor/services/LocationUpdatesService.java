@@ -18,6 +18,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -32,7 +33,9 @@ import tapsi.geodoor.MainActivity;
 import tapsi.geodoor.R;
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
+import tapsi.geodoor.logic.ServerCommunicationHandler;
 import tapsi.geodoor.retrofit.RetrofitHandler;
+import tapsi.geodoor.viewModel.TabViewModel;
 
 public class LocationUpdatesService extends Service {
 
@@ -109,6 +112,8 @@ public class LocationUpdatesService extends Service {
 
     private RetrofitHandler retrofitHandler;
 
+    private ServerCommunicationHandler serverCommunicationHandler;
+
     public LocationUpdatesService() {
     }
 
@@ -126,6 +131,7 @@ public class LocationUpdatesService extends Service {
 
         autoGateLogic = new AutoGateLogic(getApplicationContext());
         retrofitHandler = new RetrofitHandler();
+        serverCommunicationHandler = new ServerCommunicationHandler(retrofitHandler, getApplicationContext());
         createLocationRequest();
         getLastLocation();
 
@@ -246,6 +252,18 @@ public class LocationUpdatesService extends Service {
         retrofitHandler.loginUser();
     }
 
+    public void openGate() {
+        serverCommunicationHandler.openGate();
+    }
+
+    public void openGateAuto() {
+        serverCommunicationHandler.openGateAuto();
+    }
+
+    public void openDoor() {
+        serverCommunicationHandler.openDoor();
+    }
+
     /**
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
@@ -273,7 +291,7 @@ public class LocationUpdatesService extends Service {
                 .setContentText(getString(R.string.notification_text))
                 .setContentTitle(getString(R.string.notification_title))
                 .setOngoing(true)
-                .setPriority(NotificationManager.IMPORTANCE_LOW)
+                .setPriority(NotificationManager.IMPORTANCE_NONE)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker(getString(R.string.app_name))
                 .setWhen(System.currentTimeMillis());

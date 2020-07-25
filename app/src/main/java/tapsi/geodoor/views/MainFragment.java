@@ -1,5 +1,6 @@
 package tapsi.geodoor.views;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -130,6 +132,17 @@ public class MainFragment extends Fragment {
                 textView.setText(R.string.status_Lock_On);
             else if (currentState.equals(AutoGateLogic.TravelState.OUTSIDE))
                 textView.setText(R.string.status_Lock_Off);
+        });
+
+        tabViewModel.getIsConnected().observe(getViewLifecycleOwner(), isConnected -> {
+            TextView textView = getView().findViewById(R.id.status_connection);
+            if (isConnected) {
+                textView.setText(R.string.status_connection_connected);
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+            } else {
+                textView.setText(R.string.status_connection_connected);
+                textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+            }
         });
     }
 

@@ -5,7 +5,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import tapsi.geodoor.retrofit.models.AnswerModel;
 import tapsi.geodoor.retrofit.models.AuthModel;
-import tapsi.geodoor.retrofit.models.DeviceModel;
+import tapsi.geodoor.retrofit.models.CommandItem;
 
 public interface JsonPlaceHolderApi {
     @POST("register")
@@ -14,6 +14,6 @@ public interface JsonPlaceHolderApi {
     @POST("login")
     Call<AnswerModel> loginUser(@Body AuthModel model);
 
-    @POST("open")
-    Call<AnswerModel> openDevice(@Body DeviceModel model);
+    @POST("command")
+    Call<AnswerModel> sendCommand(@Body CommandItem model);
 }

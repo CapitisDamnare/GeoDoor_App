@@ -42,6 +42,9 @@ public class ControlFragment extends Fragment {
 
     public interface ControlFragmentListener {
         void onBtnModeClicked(boolean isAutoMode);
+        void onBtnOpenGate();
+        void onBtnOpenGateAuto();
+        void onBtnOpenDoor();
     }
 
     public void setOnControlFragmentListener(ControlFragmentListener callback) {
@@ -83,16 +86,22 @@ public class ControlFragment extends Fragment {
         Button btn_error_report = getView().findViewById(R.id.controls_btn_error_report);
 
 
-        btn_gate_auto.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_gate_auto.setOnClickListener(v -> {
+            callback.onBtnOpenGateAuto();
+        });
 
-        btn_gate_man.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_gate_man.setOnClickListener(v -> {
+            callback.onBtnOpenGate();
+        });
 
         btn_mode.setOnClickListener(v -> {
             isAutoMode = !isAutoMode;
             callback.onBtnModeClicked(isAutoMode);
         });
 
-        btn_door.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_door.setOnClickListener(v -> {
+            callback.onBtnOpenDoor();
+        });
 
         btn_open_visu.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
 

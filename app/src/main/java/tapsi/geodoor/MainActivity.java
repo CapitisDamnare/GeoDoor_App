@@ -18,6 +18,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -37,6 +38,7 @@ import com.google.android.material.tabs.TabLayout;
 import tapsi.geodoor.controller.NavigationMenuController;
 import tapsi.geodoor.controller.PagerAdapter;
 import tapsi.geodoor.database.tables.Config;
+import tapsi.geodoor.logic.ServerCommunicationHandler;
 import tapsi.geodoor.retrofit.RetrofitHandler;
 import tapsi.geodoor.services.LocationUpdateServiceInfo;
 import tapsi.geodoor.services.LocationUpdatesService;
@@ -289,24 +291,75 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(LocationUpdatesService.EXTRA_LOCATION)) {
                 LocationUpdateServiceInfo info = (LocationUpdateServiceInfo) intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
                 if (info != null) {
-                    Log.i(TAG, "MainActivity got LocationUpdate");
                     tabViewModel.setDistance(info.distance());
                     tabViewModel.setLastLocation(info.currentLocation());
                     tabViewModel.setUpdateInterval(info.currentUpdateInterval());
                     tabViewModel.setLastGateOpenEvent(info.countDown());
                     tabViewModel.setCurrentState(info.currentState());
                 }
+                return;
             }
-            if (intent.hasExtra(RetrofitHandler.EXTRA_REGISTER_DATA)) {
-                String data = intent.getStringExtra(RetrofitHandler.EXTRA_REGISTER_DATA);
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_CONNECTION_FAILURE)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_CONNECTION_FAILURE);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Connection Failure", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Connection Failure: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_CONNECTION_STATUS)) {
+                boolean data = intent.getBooleanExtra(ServerCommunicationHandler.EXTRA_CONNECTION_STATUS, false);
+                tabViewModel.setIsConnected(data);
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_LOGIN_FAILED)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_LOGIN_FAILED);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Login Failed: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_REGISTER_DATA)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_REGISTER_DATA);
                 if (data != null) {
                     Config config = tabViewModel.getConfig().getValue();
                     if (config != null) {
-                        Log.i(TAG, "MainActivity got md5Hash update");
                         config.setMd5Hash(data);
                         tabViewModel.setConfig(config);
                     }
                 }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_REGISTER_FAILED)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_REGISTER_FAILED);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Register Failed", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Register Failed: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_COMMAND_SUCCESS)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_COMMAND_SUCCESS);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Command Success: " + data, Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Command Success: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_COMMAND_FAILED)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_COMMAND_FAILED);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Command Failed", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Command Failed: " + data);
+                }
+                return;
             }
         }
     }
@@ -347,6 +400,21 @@ public class MainActivity extends AppCompatActivity implements
             mService.removeLocationUpdates(true);
             setButtonsState(false);
         }
+    }
+
+    @Override
+    public void onBtnOpenGate() {
+        mService.openGate();
+    }
+
+    @Override
+    public void onBtnOpenGateAuto() {
+        mService.openGateAuto();
+    }
+
+    @Override
+    public void onBtnOpenDoor() {
+        mService.openDoor();
     }
 
     @Override

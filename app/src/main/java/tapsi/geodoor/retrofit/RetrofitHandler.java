@@ -1,10 +1,7 @@
 package tapsi.geodoor.retrofit;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -19,18 +16,36 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.retrofit.models.AnswerModel;
 import tapsi.geodoor.retrofit.models.AuthModel;
-
-import static android.provider.ContactsContract.Directory.PACKAGE_NAME;
-import static tapsi.geodoor.services.LocationUpdatesService.ACTION_BROADCAST;
+import tapsi.geodoor.retrofit.models.CommandItem;
 
 public class RetrofitHandler {
     private static final String TAG = "tapsi.retrofit";
-    public static final String EXTRA_REGISTER_DATA = PACKAGE_NAME + ".register_data";
 
     private Config config = null;
     private Retrofit retrofit;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
     private Context context;
+
+    private RetrofitListener callBack;
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public interface RetrofitListener {
+        void loginSuccessful();
+        void loginFailed(AnswerModel answerModel);
+        void loginOnFailure(String message);
+        void registerSuccessful(AnswerModel answerModel);
+        void registerFailed(AnswerModel answerModel);
+        void registerOnFailure(String message);
+        void sendCommandSuccessful(AnswerModel answerModel);
+        void sendCommandOnFailure(String message);
+    }
+
+    public void setOnRetrofitListener(RetrofitHandler.RetrofitListener callBack) {
+        this.callBack = callBack;
+    }
 
     public AnswerModel parseError(Response<?> response) {
         Converter<ResponseBody, AnswerModel> converter = retrofit
@@ -75,26 +90,17 @@ public class RetrofitHandler {
         call.enqueue(new Callback<AnswerModel>() {
             @Override
             public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
-
                 if (response.isSuccessful()) {
-                    Log.i(TAG, "registerUser response: " + response
-                            + "\nbody: " + response.body());
-
-                    Intent intent = new Intent(ACTION_BROADCAST);
-                    intent.putExtra(EXTRA_REGISTER_DATA, response.body().getData());
-                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                    callBack.registerSuccessful(response.body());
                 }
                 else {
-                    Log.i(TAG, "registerUser response: " + response
-                            + "\nerrorBody: " + parseError(response));
-                    // TODO: Send couldn't login data.
+                    callBack.registerFailed(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<AnswerModel> call, Throwable t) {
-                Log.e(TAG, "OnFailure:\n" + t.getMessage());
-                // TODO: Send couldn't login
+                callBack.registerOnFailure(t.getMessage());
             }
         });
     }
@@ -112,23 +118,35 @@ public class RetrofitHandler {
         call.enqueue(new Callback<AnswerModel>() {
             @Override
             public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
-
                 if (response.isSuccessful()) {
-                    Log.i(TAG, "loginUser response: " + response
-                            + "\nbody: " + response.body());
-                    // TODO: Start getGate request
+                    callBack.loginSuccessful();
                 }
                 else {
-                    Log.i(TAG, "loginUser response: " + response
-                            + "\nerrorBody: " + parseError(response));
-                    registerUser();
+                    callBack.loginFailed(parseError(response));
                 }
             }
 
             @Override
             public void onFailure(Call<AnswerModel> call, Throwable t) {
-                Log.e(TAG, "OnFailure:\n" + t.getMessage());
-                // TODO: Send couldn't login
+                callBack.loginOnFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void sendCommand(CommandItem commandItem) {
+        Call<AnswerModel> call = jsonPlaceHolderApi.sendCommand(commandItem);
+
+        call.enqueue(new Callback<AnswerModel>() {
+            @Override
+            public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
+                if (response.isSuccessful()) {
+                    callBack.sendCommandSuccessful(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnswerModel> call, Throwable t) {
+                callBack.sendCommandOnFailure(t.getMessage());
             }
         });
     }

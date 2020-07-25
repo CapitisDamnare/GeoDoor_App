@@ -26,6 +26,7 @@ public class TabViewModel extends AndroidViewModel {
     private MutableLiveData<Long> updateInterval = new MutableLiveData<>();
     private MutableLiveData<Long> countDown = new MutableLiveData<>();
     private MutableLiveData<AutoGateLogic.TravelState> currentState = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
 
     public TabViewModel(@NonNull Application application) {
         super(application);
@@ -91,5 +92,13 @@ public class TabViewModel extends AndroidViewModel {
 
     public void setCurrentState(AutoGateLogic.TravelState currentState) {
         this.currentState.setValue(currentState);
+    }
+
+    public MutableLiveData<Boolean> getIsConnected() {
+        return isConnected;
+    }
+
+    public void setIsConnected(Boolean isConnected) {
+        this.isConnected.setValue(isConnected);
     }
 }

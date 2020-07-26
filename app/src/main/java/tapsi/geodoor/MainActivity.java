@@ -35,11 +35,14 @@ import com.andexert.library.BuildConfig;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 import tapsi.geodoor.controller.NavigationMenuController;
 import tapsi.geodoor.controller.PagerAdapter;
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.ServerCommunicationHandler;
 import tapsi.geodoor.retrofit.RetrofitHandler;
+import tapsi.geodoor.retrofit.models.AnswerModel;
 import tapsi.geodoor.services.LocationUpdateServiceInfo;
 import tapsi.geodoor.services.LocationUpdatesService;
 import tapsi.geodoor.services.Utils;
@@ -358,6 +361,25 @@ public class MainActivity extends AppCompatActivity implements
                 if (data != null) {
                     Toast.makeText(getApplicationContext(), "Command Failed", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "Command Failed: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_GET_GATE_SUCCESS)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_GET_GATE_SUCCESS);
+                if (data != null) {
+                    AnswerModel.GateStatus gateStatus = Enum.valueOf(AnswerModel.GateStatus.class, data);
+                    tabViewModel.setGateStatus(gateStatus);
+                    Log.e(TAG, "Get Gate Success: " + data);
+                }
+                return;
+            }
+
+            if (intent.hasExtra(ServerCommunicationHandler.EXTRA_GET_GATE_FAILED)) {
+                String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_GET_GATE_FAILED);
+                if (data != null) {
+                    Toast.makeText(getApplicationContext(), "Get Gate Failed", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Get Gate Failed: " + data);
                 }
                 return;
             }

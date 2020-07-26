@@ -5,6 +5,9 @@ import android.content.Intent;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.retrofit.RetrofitHandler;
 import tapsi.geodoor.retrofit.models.AnswerModel;
@@ -24,9 +27,13 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
     public static final String EXTRA_REGISTER_FAILED = PACKAGE_NAME + ".register_failed";
     public static final String EXTRA_COMMAND_SUCCESS = PACKAGE_NAME + ".command_success";
     public static final String EXTRA_COMMAND_FAILED = PACKAGE_NAME + ".command_failed";
+    public static final String EXTRA_GET_GATE_SUCCESS = PACKAGE_NAME + ".get_gate_success";
+    public static final String EXTRA_GET_GATE_FAILED = PACKAGE_NAME + ".get_gate_failed";
 
     private RetrofitHandler retrofitHandler;
     private Context context;
+    private Timer timer;
+    boolean isLoggedIn = false;
 
     public enum AccessRights
     {
@@ -39,10 +46,13 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
         this.retrofitHandler = retrofitHandler;
         this.retrofitHandler.setOnRetrofitListener(this);
         this.context = context;
+        timer = new Timer();
+        startTimer();
     }
 
     @Override
     public void loginSuccessful() {
+        isLoggedIn = true;
         sendBroadcast(EXTRA_CONNECTION_STATUS, true);
     }
 
@@ -99,6 +109,18 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
         sendBroadcast(EXTRA_CONNECTION_STATUS, false);
     }
 
+    @Override
+    public void getGateStatusSuccess(String gateStatus) {
+        sendBroadcast(EXTRA_GET_GATE_SUCCESS, gateStatus);
+        sendBroadcast(EXTRA_CONNECTION_STATUS, true);
+    }
+
+    @Override
+    public void getGateOnFailure(String message) {
+        sendBroadcast(EXTRA_GET_GATE_FAILED, message);
+        sendBroadcast(EXTRA_CONNECTION_STATUS, false);
+    }
+
     public void openGate() {
         CommandItem commandItem = new CommandItem();
         Config config = retrofitHandler.getConfig();
@@ -126,6 +148,10 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
         retrofitHandler.sendCommand(commandItem);
     }
 
+    public void getGateStatus() {
+        retrofitHandler.getGateStatus();
+    }
+
     private void sendBroadcast(String putExtraString, String data) {
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(putExtraString, data);
@@ -136,5 +162,19 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(putExtraString, data);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    private void startTimer() {
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (retrofitHandler != null && isLoggedIn)
+                    retrofitHandler.getGateStatus();
+            }
+        }, 0, 3000);
+    }
+
+    public void stopTimer() {
+        timer.cancel();
+        timer.purge();
     }
 }

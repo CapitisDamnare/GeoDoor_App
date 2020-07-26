@@ -1,6 +1,5 @@
 package tapsi.geodoor.views;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +24,7 @@ import java.util.TimerTask;
 
 import tapsi.geodoor.R;
 import tapsi.geodoor.logic.AutoGateLogic;
+import tapsi.geodoor.retrofit.models.AnswerModel;
 import tapsi.geodoor.viewModel.TabViewModel;
 
 /**
@@ -45,6 +45,7 @@ public class MainFragment extends Fragment {
     private boolean isTimerRunning = false;
     private Timer timer;
     private long countDown;
+    private AnswerModel.GateStatus currentGateStatus = AnswerModel.GateStatus.GateClosed;
 
     private boolean showStandardValues = false;
 
@@ -143,6 +144,29 @@ public class MainFragment extends Fragment {
                 textView.setText(R.string.status_connection_connected);
                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
             }
+        });
+
+        tabViewModel.getGateStatus().observe(getViewLifecycleOwner(), gateStatus -> {
+            TextView textView = getView().findViewById(R.id.status_door);
+            switch (gateStatus) {
+                case GateOpen:
+                    textView.setText(R.string.status_door_open);
+                    if (!currentGateStatus.equals(gateStatus))
+                        doorAnimationOpen();
+                    break;
+                case GateOpening:
+                    textView.setText(R.string.status_door_isOpening);
+                    break;
+                case GateClosing:
+                    textView.setText(R.string.status_door_isClosing);
+                    break;
+                case GateClosed:
+                    textView.setText(R.string.status_door_closed);
+                    if (!currentGateStatus.equals(gateStatus))
+                        doorAnimationClose();
+                    break;
+            }
+            currentGateStatus = gateStatus;
         });
     }
 

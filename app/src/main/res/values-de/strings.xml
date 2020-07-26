@@ -8,7 +8,7 @@
     <string name="status">Status</string>
     <string name="controls">Steuerung</string>
     <string name="status_mode_textView_auto">AUTOMATISCHER MODUS AKTIV</string>
-    <string name="status_door">TOR GESCHLOSSEN</string>
+    <string name="status_door_open">TOR OFFEN</string>
     <string name="status_connection_connected">VERBUNDEN</string>
     <string name="status_Distance_Description">Distanz</string>
     <string name="status_gpsTimeOut_Description">GPS Interval</string>
@@ -45,4 +45,7 @@
     <string name="settings_location">Wähle Koordinaten</string>
     <string name="settings_accuracy">MIN. GENAUIGKEIT [m]</string>
     <string name="settings_accuracy_hint">20</string>
+    <string name="status_door_closed">TOR GESCHLOSSEN</string>
+    <string name="status_door_isOpening">TOR ÖFFNET SICH</string>
+    <string name="status_door_isClosing">TOR SCHLIESST SICH</string>
 </resources>

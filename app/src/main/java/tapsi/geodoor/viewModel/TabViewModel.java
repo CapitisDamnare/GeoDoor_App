@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import tapsi.geodoor.database.GeoDoorDbRepository;
 import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
+import tapsi.geodoor.retrofit.models.AnswerModel;
 
 public class TabViewModel extends AndroidViewModel {
 
@@ -27,6 +28,7 @@ public class TabViewModel extends AndroidViewModel {
     private MutableLiveData<Long> countDown = new MutableLiveData<>();
     private MutableLiveData<AutoGateLogic.TravelState> currentState = new MutableLiveData<>();
     private MutableLiveData<Boolean> isConnected = new MutableLiveData<>();
+    private MutableLiveData<AnswerModel.GateStatus> gateStatus = new MutableLiveData<>();
 
     public TabViewModel(@NonNull Application application) {
         super(application);
@@ -100,5 +102,13 @@ public class TabViewModel extends AndroidViewModel {
 
     public void setIsConnected(Boolean isConnected) {
         this.isConnected.setValue(isConnected);
+    }
+
+    public MutableLiveData<AnswerModel.GateStatus> getGateStatus() {
+        return gateStatus;
+    }
+
+    public void setGateStatus(AnswerModel.GateStatus gateStatus) {
+        this.gateStatus.setValue(gateStatus);
     }
 }

@@ -16,4 +16,7 @@ public interface JsonPlaceHolderApi {
 
     @POST("command")
     Call<AnswerModel> sendCommand(@Body CommandItem model);
+
+    @POST("gateStatus")
+    Call<AnswerModel> getGateStatus(@Body AuthModel model);
 }

@@ -23,4 +23,12 @@ public class AnswerModel {
                 ", data='" + data + '\'' +
                 '}';
     }
+
+    public enum GateStatus
+    {
+        GateOpen,
+        GateOpening,
+        GateClosing,
+        GateClosed
+    }
 }

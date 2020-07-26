@@ -14,7 +14,10 @@
 
     <string name="status_mode_textView_auto">AUTOMATIC MODE ACTIVE</string>
     <string name="status_mode_textView_man">MANUAL MODE ACTIVE</string>
-    <string name="status_door">DOOR CLOSED</string>
+    <string name="status_door_open">DOOR OPEN</string>
+    <string name="status_door_closed">DOOR CLOSED</string>
+    <string name="status_door_isOpening">DOOR IS OPENING</string>
+    <string name="status_door_isClosing">DOOR IS CLOSING</string>
     <string name="status_connection_connected">CONNECTED</string>
     <string name="status_connection_disconnected">DISCONNECTED</string>
     <string name="status_Distance" translatable="false">- km</string>

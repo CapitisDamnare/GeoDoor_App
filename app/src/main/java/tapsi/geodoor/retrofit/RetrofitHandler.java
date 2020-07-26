@@ -41,9 +41,11 @@ public class RetrofitHandler {
         void registerOnFailure(String message);
         void sendCommandSuccessful(AnswerModel answerModel);
         void sendCommandOnFailure(String message);
+        void getGateStatusSuccess(String gateStatus);
+        void getGateOnFailure(String message);
     }
 
-    public void setOnRetrofitListener(RetrofitHandler.RetrofitListener callBack) {
+    public void setOnRetrofitListener(RetrofitListener callBack) {
         this.callBack = callBack;
     }
 
@@ -141,12 +143,41 @@ public class RetrofitHandler {
             public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
                 if (response.isSuccessful()) {
                     callBack.sendCommandSuccessful(response.body());
+                } else {
+                    callBack.sendCommandOnFailure(response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<AnswerModel> call, Throwable t) {
                 callBack.sendCommandOnFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void getGateStatus() {
+        if (retrofit == null)
+            return;
+
+        AuthModel auth = new AuthModel();
+        auth.setName(config.getName());
+        auth.setMd5Hash(config.getMd5Hash());
+
+        Call<AnswerModel> call = jsonPlaceHolderApi.getGateStatus(auth);
+
+        call.enqueue(new Callback<AnswerModel>() {
+            @Override
+            public void onResponse(Call<AnswerModel> call, Response<AnswerModel> response) {
+                if (response.isSuccessful()) {
+                    callBack.getGateStatusSuccess(response.body().getData());
+                } else {
+                    callBack.getGateOnFailure(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnswerModel> call, Throwable t) {
+                callBack.getGateOnFailure(t.getMessage());
             }
         });
     }

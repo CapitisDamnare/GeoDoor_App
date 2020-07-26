@@ -18,7 +18,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,9 +34,8 @@ import tapsi.geodoor.database.tables.Config;
 import tapsi.geodoor.logic.AutoGateLogic;
 import tapsi.geodoor.logic.ServerCommunicationHandler;
 import tapsi.geodoor.retrofit.RetrofitHandler;
-import tapsi.geodoor.viewModel.TabViewModel;
 
-public class LocationUpdatesService extends Service {
+public class LocationUpdatesService extends Service implements AutoGateLogic.AutoGateListener {
 
     private static final String PACKAGE_NAME = "tapsi.geodoor";
 
@@ -130,6 +128,7 @@ public class LocationUpdatesService extends Service {
         };
 
         autoGateLogic = new AutoGateLogic(getApplicationContext());
+        autoGateLogic.setOnAutoGateListener(this);
         retrofitHandler = new RetrofitHandler();
         serverCommunicationHandler = new ServerCommunicationHandler(retrofitHandler, getApplicationContext());
         createLocationRequest();
@@ -291,7 +290,7 @@ public class LocationUpdatesService extends Service {
                 .setContentText(getString(R.string.notification_text))
                 .setContentTitle(getString(R.string.notification_title))
                 .setOngoing(true)
-                .setPriority(NotificationManager.IMPORTANCE_NONE)
+                .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setTicker(getString(R.string.app_name))
                 .setWhen(System.currentTimeMillis());
@@ -396,5 +395,11 @@ public class LocationUpdatesService extends Service {
         public LocationUpdatesService getService() {
             return LocationUpdatesService.this;
         }
+    }
+
+    @Override
+    public void onOpenGate() {
+        if (serverCommunicationHandler != null)
+            serverCommunicationHandler.openGateAuto();
     }
 }

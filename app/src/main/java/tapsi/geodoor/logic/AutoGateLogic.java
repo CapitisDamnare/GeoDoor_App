@@ -24,6 +24,8 @@ public class AutoGateLogic {
 
     private Location homeLocation;
 
+    private AutoGateListener callBack;
+
     public long getCountDown() {
         if (lastOpenGateEvent.equals(LocalDateTime.MIN))
             return 0L;
@@ -58,6 +60,14 @@ public class AutoGateLogic {
         OUTSIDE
     }
 
+    public interface AutoGateListener {
+        void onOpenGate();
+    }
+
+    public void setOnAutoGateListener(AutoGateListener callBack) {
+        this.callBack = callBack;
+    }
+
     public AutoGateLogic(Context context) {
         mContext = context;
         config = null;
@@ -74,7 +84,7 @@ public class AutoGateLogic {
             if (lastCalculatedDistance < config.getRadius()
                     && currentState.equals(TravelState.OUTSIDE)
                     && countDown <= 0L) {
-                Log.i(TAG, "Open Gate!");
+                callBack.onOpenGate();
                 lastOpenGateEvent = LocalDateTime.now().plusSeconds(30);
                 currentState = TravelState.HOME;
             } else if (lastCalculatedDistance > config.getRadius() && countDown <= 0L) {

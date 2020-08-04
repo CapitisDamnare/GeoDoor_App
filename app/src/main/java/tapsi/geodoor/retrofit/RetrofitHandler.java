@@ -5,7 +5,9 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +29,7 @@ public class RetrofitHandler {
     private Context context;
 
     private RetrofitListener callBack;
+    private OkHttpClient.Builder httpClient;
 
     public Config getConfig() {
         return config;
@@ -68,10 +71,17 @@ public class RetrofitHandler {
         this.config = config;
         this.context = context;
 
+        httpClient = new OkHttpClient.Builder()
+                .callTimeout(2, TimeUnit.MINUTES)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS);
+
         try {
             retrofit = new Retrofit.Builder()
                     .baseUrl(config.getIpAddress())
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient.build())
                     .build();
 
             jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);

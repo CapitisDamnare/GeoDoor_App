@@ -68,12 +68,79 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/controls_btn_gate_man"
+                        android:id="@+id/controls_btn_door"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/colorBlue"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="@string/controls_btn_gate_man"
+                        android:text="@string/controls_btn_door"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </com.andexert.library.RippleView>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5sp"
+            android:layout_marginTop="5sp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5sp"
+                android:layout_weight="5"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="5sp">
+
+                <com.andexert.library.RippleView
+                    rv_centered="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/controls_btn_gate_man_open"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBlue"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/controls_btn_gate_man_open"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="14sp" />
+
+                </com.andexert.library.RippleView>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5sp"
+                android:layout_weight="5"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="5sp">
+
+                <com.andexert.library.RippleView
+                    rv_centered="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/controls_btn_gate_man_close"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBlue"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/controls_btn_gate_man_close"
                         android:textColor="@color/colorWhite"
                         android:textSize="14sp" />
 
@@ -113,34 +180,6 @@
                         android:background="@color/colorBlue"
                         android:fontFamily="@font/roboto_medium"
                         android:text="@string/controls_btn_mode_activate_auto"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="14sp" />
-
-                </com.andexert.library.RippleView>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5sp"
-                android:layout_weight="5"
-                app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="5sp">
-
-                <com.andexert.library.RippleView
-                    rv_centered="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <Button
-                        android:id="@+id/controls_btn_door"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorBlue"
-                        android:fontFamily="@font/roboto_medium"
-                        android:text="@string/controls_btn_door"
                         android:textColor="@color/colorWhite"
                         android:textSize="14sp" />
 

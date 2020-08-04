@@ -35,7 +35,8 @@
     <string name="status_Lock_Description">LOCK</string>
 
     <string name="controls_btn_gate_auto">OPEN DOOR AUTO</string>
-    <string name="controls_btn_gate_man">OPEN DOOR MAN</string>
+    <string name="controls_btn_gate_man_open">OPEN DOOR MAN</string>
+    <string name="controls_btn_gate_man_close">CLOSE DOOR MAN</string>
     <string name="controls_txtView_mode">MAN MODE ACTIV</string>
     <string name="controls_btn_door">OPEN DOOR</string>
     <string name="controls_open_visu">OPEN GEODOOR VISU</string>

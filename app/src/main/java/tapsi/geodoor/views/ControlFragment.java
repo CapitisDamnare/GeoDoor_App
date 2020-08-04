@@ -43,6 +43,7 @@ public class ControlFragment extends Fragment {
     public interface ControlFragmentListener {
         void onBtnModeClicked(boolean isAutoMode);
         void onBtnOpenGate();
+        void onBtnCloseGate();
         void onBtnOpenGateAuto();
         void onBtnOpenDoor();
     }
@@ -77,7 +78,8 @@ public class ControlFragment extends Fragment {
     private void buttonAnimation() {
 
         Button btn_gate_auto = getView().findViewById(R.id.controls_btn_gate_auto);
-        Button btn_gate_man = getView().findViewById(R.id.controls_btn_gate_man);
+        Button btn_gate_man_open = getView().findViewById(R.id.controls_btn_gate_man_open);
+        Button btn_gate_man_close = getView().findViewById(R.id.controls_btn_gate_man_close);
         Button btn_mode = getView().findViewById(R.id.controls_btn_mode);
         Button btn_door = getView().findViewById(R.id.controls_btn_door);
         Button btn_open_visu = getView().findViewById(R.id.controls_btn_open_visu);
@@ -90,8 +92,12 @@ public class ControlFragment extends Fragment {
             callback.onBtnOpenGateAuto();
         });
 
-        btn_gate_man.setOnClickListener(v -> {
+        btn_gate_man_open.setOnClickListener(v -> {
             callback.onBtnOpenGate();
+        });
+
+        btn_gate_man_close.setOnClickListener(v -> {
+            callback.onBtnCloseGate();
         });
 
         btn_mode.setOnClickListener(v -> {
@@ -116,7 +122,12 @@ public class ControlFragment extends Fragment {
             return false;
         });
 
-        btn_gate_man.setOnTouchListener((view, motionEvent) -> {
+        btn_gate_man_open.setOnTouchListener((view, motionEvent) -> {
+            startAnimation(view, motionEvent);
+            return false;
+        });
+
+        btn_gate_man_close.setOnTouchListener((view, motionEvent) -> {
             startAnimation(view, motionEvent);
             return false;
         });

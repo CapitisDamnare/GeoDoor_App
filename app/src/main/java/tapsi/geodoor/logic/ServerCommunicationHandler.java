@@ -126,7 +126,16 @@ public class ServerCommunicationHandler implements RetrofitHandler.RetrofitListe
         Config config = retrofitHandler.getConfig();
         commandItem.authentication = new AuthModel(config.getName(), config.getMd5Hash());
         commandItem.command = CommandItem.Command.OpenGate;
-        commandItem.commandValue = CommandItem.CommandValue.Open;
+        commandItem.commandValue = CommandItem.CommandValue.ForceOpen;
+        retrofitHandler.sendCommand(commandItem);
+    }
+
+    public void closeGate() {
+        CommandItem commandItem = new CommandItem();
+        Config config = retrofitHandler.getConfig();
+        commandItem.authentication = new AuthModel(config.getName(), config.getMd5Hash());
+        commandItem.command = CommandItem.Command.OpenGate;
+        commandItem.commandValue = CommandItem.CommandValue.ForceClose;
         retrofitHandler.sendCommand(commandItem);
     }
 

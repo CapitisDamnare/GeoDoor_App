@@ -141,7 +141,7 @@ public class MainFragment extends Fragment {
                 textView.setText(R.string.status_connection_connected);
                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
             } else {
-                textView.setText(R.string.status_connection_connected);
+                textView.setText(R.string.status_connection_disconnected);
                 textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorRed));
             }
         });

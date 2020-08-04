@@ -18,7 +18,7 @@
     <string name="status_Lock_Off">AUS</string>
     <string name="status_Lock_Description">Sperre</string>
     <string name="controls_btn_gate_auto">TOR ÖFFNEN AUTO</string>
-    <string name="controls_btn_gate_man">TOR ÖFFNEN MANUELL</string>
+    <string name="controls_btn_gate_man_open">TOR ÖFFNEN MANUELL</string>
     <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
     <string name="controls_btn_door">TÜR ÖFFNEN</string>
     <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
@@ -48,4 +48,5 @@
     <string name="status_door_closed">TOR GESCHLOSSEN</string>
     <string name="status_door_isOpening">TOR ÖFFNET SICH</string>
     <string name="status_door_isClosing">TOR SCHLIESST SICH</string>
+    <string name="controls_btn_gate_man_close">TOR SCHLIESSEN MANUELL</string>
 </resources>

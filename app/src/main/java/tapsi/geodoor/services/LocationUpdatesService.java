@@ -255,6 +255,10 @@ public class LocationUpdatesService extends Service implements AutoGateLogic.Aut
         serverCommunicationHandler.openGate();
     }
 
+    public void closeGate() {
+        serverCommunicationHandler.closeGate();
+    }
+
     public void openGateAuto() {
         serverCommunicationHandler.openGateAuto();
     }

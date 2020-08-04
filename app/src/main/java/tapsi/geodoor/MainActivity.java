@@ -430,6 +430,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onBtnCloseGate() {
+        mService.closeGate();
+    }
+
+    @Override
     public void onBtnOpenGateAuto() {
         mService.openGateAuto();
     }

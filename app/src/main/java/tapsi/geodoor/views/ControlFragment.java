@@ -1,6 +1,9 @@
 package tapsi.geodoor.views;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -109,13 +112,29 @@ public class ControlFragment extends Fragment {
             callback.onBtnOpenDoor();
         });
 
-        btn_open_visu.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_open_visu.setOnClickListener(v -> {
+            try {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(tabViewModel.getConfig().getValue().getIpAddress()));
+                startActivity(browserIntent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getView().getContext(), "Error",  Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        });
 
-        btn_homepage.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_homepage.setOnClickListener(v -> {
+            try {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.die-technik-und-ich.at/?page_id=313"));
+                startActivity(browserIntent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getView().getContext(), "Error",  Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        });
 
-        btn_log.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_log.setOnClickListener(v -> Toast.makeText(getView().getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show());
 
-        btn_error_report.setOnClickListener(v -> Toast.makeText(getView().getContext(), "clicked", Toast.LENGTH_SHORT).show());
+        btn_error_report.setOnClickListener(v -> Toast.makeText(getView().getContext(), "Not implemented yet", Toast.LENGTH_SHORT).show());
 
         btn_gate_auto.setOnTouchListener((view, motionEvent) -> {
             startAnimation(view, motionEvent);

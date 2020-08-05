@@ -22,6 +22,7 @@ import tapsi.geodoor.retrofit.models.CommandItem;
 
 public class RetrofitHandler {
     private static final String TAG = "tapsi.retrofit";
+    private final String API_CONTROLLER = "api/values/";
 
     private Config config = null;
     private Retrofit retrofit;
@@ -78,8 +79,9 @@ public class RetrofitHandler {
                 .writeTimeout(15, TimeUnit.SECONDS);
 
         try {
+            String address = config.getIpAddress() + API_CONTROLLER ;
             retrofit = new Retrofit.Builder()
-                    .baseUrl(config.getIpAddress())
+                    .baseUrl(address)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();

@@ -21,7 +21,7 @@
     <string name="controls_btn_gate_man_open">TOR ÖFFNEN MANUELL</string>
     <string name="controls_txtView_mode">MAN MODUS AKTIV</string>
     <string name="controls_btn_door">TÜR ÖFFNEN</string>
-    <string name="controls_open_visu">GEODOOR VISU ÖFFNEN</string>
+    <string name="controls_open_visu">GEODOOR WEB ÖFFNEN</string>
     <string name="controls_btn_error_report">ERROR REPORT SENDEN</string>
     <string name="controls_btn_mode_activate_auto">AKTIVIERE AUTO MODE</string>
     <string name="settings_ip_address">IP ADRESSE</string>
@@ -44,9 +44,13 @@
     <string name="map_shown">Aktuell</string>
     <string name="settings_location">Wähle Koordinaten</string>
     <string name="settings_accuracy">MIN. GENAUIGKEIT [m]</string>
-    <string name="settings_accuracy_hint">20</string>
+    <string name="settings_accuracy_hint">20.0</string>
     <string name="status_door_closed">TOR GESCHLOSSEN</string>
     <string name="status_door_isOpening">TOR ÖFFNET SICH</string>
     <string name="status_door_isClosing">TOR SCHLIESST SICH</string>
     <string name="controls_btn_gate_man_close">TOR SCHLIESSEN MANUELL</string>
+    <string name="toast_connection_error">Verbindungsproblem: %1$s</string>
+    <string name="toast_login_failed">Login nicht erfolgreich: %1$s</string>
+    <string name="toast_register_failed">Registrierung nicht erfolgreich: %1$s</string>
+    <string name="toast_command_failed">Kommando nicht erfolgreich: %1$s</string>
 </resources>

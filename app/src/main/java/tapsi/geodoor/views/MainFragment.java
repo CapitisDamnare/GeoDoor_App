@@ -45,7 +45,7 @@ public class MainFragment extends Fragment {
     private boolean isTimerRunning = false;
     private Timer timer;
     private long countDown;
-    private AnswerModel.GateStatus currentGateStatus = AnswerModel.GateStatus.GateClosed;
+    private AnswerModel.GateStatus currentGateStatus;
 
     private boolean showStandardValues = false;
 
@@ -70,6 +70,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tabViewModel = new ViewModelProvider(getActivity()).get(TabViewModel.class);
         initLiveDataObservers();
+        currentGateStatus = AnswerModel.GateStatus.GateClosed;
     }
 
     private void initLiveDataObservers() {

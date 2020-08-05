@@ -39,7 +39,7 @@
     <string name="controls_btn_gate_man_close">CLOSE DOOR MAN</string>
     <string name="controls_txtView_mode">MAN MODE ACTIV</string>
     <string name="controls_btn_door">OPEN DOOR</string>
-    <string name="controls_open_visu">OPEN GEODOOR VISU</string>
+    <string name="controls_open_visu">OPEN GEODOOR WEB</string>
     <string name="controls_btn_homepage" translatable="false">HOMEPAGE</string>
     <string name="controls_btn_log" translatable="false">LOG</string>
     <string name="controls_btn_error_report">SEND ERROR REPORT</string>
@@ -53,21 +53,22 @@
     <string name="settings_alt" translatable="false">ALTITUDE</string>
     <string name="settings_radius" translatable="false">RADIUS [m]</string>
     <string name="settings_name_hint" translatable="false">John Doe</string>
-    <string name="settings_ip_address_hint" translatable="false">10.10.10.20.11:1234</string>
+    <string name="settings_ip_address_hint" translatable="false">https://192.168.1.11:1234/</string>
     <string name="settings_lat_hint" translatable="false">47.01234567</string>
     <string name="settings_long_hint" translatable="false">14.01231122</string>
     <string name="settings_alt_hint" translatable="false">424</string>
     <string name="settings_radius_hint" translatable="false">200</string>
     <string name="settings_accuracy">MIN. ACCURACY [m]</string>
+    <string name="settings_accuracy_hint">20.0</string>
+    <string name="settings_location">Set Location</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_cancel">Cancel</string>
 
     <string name="dialog_ok" translatable="false">OK</string>
     <string name="dialog_message1">Location permission: Necessary to get gps data in auto mode.</string>
     <string name="dialog_message2">Phone permission: Necessary to get an unique sim id for the GeoDoorServer.</string>
     <string name="dialog_title">Permission Warning:</string>
     <string name="dialog_close">CLOSE</string>
-    <string name="settings_location">Set Location</string>
-    <string name="settings_save">Save</string>
-    <string name="settings_cancel">Cancel</string>
 
     <string name="launch_activity" translatable="false">Launch activity</string>
     <string name="location_unknown" translatable="false">Location unknown</string>
@@ -85,8 +86,12 @@
     <string name="notification_title">GeoDoor Service</string>
 
     <string name="map_btn_current_position">Show current position</string>
-    <string name="map_btn_save_position">Save current postion</string>
+    <string name="map_btn_save_position">Save current position</string>
     <string name="map_current">Saved</string>
     <string name="map_shown">Current</string>
-    <string name="settings_accuracy_hint">20</string>
+
+    <string name="toast_connection_error">Connection error: %1$s</string>
+    <string name="toast_login_failed">Login failed: %1$s</string>
+    <string name="toast_register_failed">Register failed: %1$s</string>
+    <string name="toast_command_failed">Command failed: %1$s</string>
 </resources>

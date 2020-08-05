@@ -305,8 +305,9 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_CONNECTION_FAILURE)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_CONNECTION_FAILURE);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Connection Failure", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Connection Failure: " + data);
+                    String text = getString(R.string.toast_connection_error, data);
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    Log.e(TAG, text);
                 }
                 return;
             }
@@ -320,8 +321,9 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_LOGIN_FAILED)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_LOGIN_FAILED);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Login Failed: " + data);
+                    String text = getString(R.string.toast_login_failed, data);
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    Log.e(TAG, text);
                 }
                 return;
             }
@@ -341,8 +343,9 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_REGISTER_FAILED)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_REGISTER_FAILED);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Register Failed", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Register Failed: " + data);
+                    String text = getString(R.string.toast_register_failed, data);
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    Log.e(TAG, text);
                 }
                 return;
             }
@@ -350,7 +353,6 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_COMMAND_SUCCESS)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_COMMAND_SUCCESS);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Command Success: " + data, Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "Command Success: " + data);
                 }
                 return;
@@ -359,8 +361,9 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_COMMAND_FAILED)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_COMMAND_FAILED);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Command Failed", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Command Failed: " + data);
+                    String text = getString(R.string.toast_command_failed, data);
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                    Log.e(TAG, text);
                 }
                 return;
             }
@@ -378,7 +381,6 @@ public class MainActivity extends AppCompatActivity implements
             if (intent.hasExtra(ServerCommunicationHandler.EXTRA_GET_GATE_FAILED)) {
                 String data = intent.getStringExtra(ServerCommunicationHandler.EXTRA_GET_GATE_FAILED);
                 if (data != null) {
-                    Toast.makeText(getApplicationContext(), "Get Gate Failed", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, "Get Gate Failed: " + data);
                 }
                 return;
@@ -456,7 +458,6 @@ public class MainActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                Log.i(TAG, "GotResult!");
 
                 Location location = data.getParcelableExtra("result");
                 if (location == null)

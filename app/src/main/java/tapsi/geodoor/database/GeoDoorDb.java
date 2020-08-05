@@ -59,12 +59,12 @@ public abstract class GeoDoorDb extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             configDao.insert(new Config(
-                    "John Does",
+                    "John Doe",
                     "",
-                    "1.1.1.1",
-                    "47.01234567",
-                    "14.01231122",
-                    "400",
+                    "https://1.1.1.1/",
+                    "47.073610",
+                    "15.437737",
+                    "",
                     200,
                     20
             ));

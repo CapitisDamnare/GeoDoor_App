@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tapsi.geodoor">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <!-- Required for foreground services on P+. -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Required for foreground services on P+. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -15,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".About"></activity>
+        <activity android:name=".MapActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleInstance"
@@ -35,14 +34,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
-        <!--
-             The API key for Google Maps-based APIs.
-        -->
+        <!--              The API key for Google Maps-based APIs. -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -50,7 +45,6 @@
         <uses-library
             android:name="com.google.android.maps"
             android:required="true" />
-
     </application>
 
 </manifest>

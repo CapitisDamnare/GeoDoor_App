@@ -102,7 +102,6 @@ public class SettingsFragment extends Fragment {
             Location location = new Location("");
             location.setLatitude(Double.parseDouble(currentConfig.getLatitude()));
             location.setLongitude(Double.parseDouble(currentConfig.getLongitude()));
-            location.setAltitude(Double.parseDouble(currentConfig.getAltitude()));
             callback.onBtnMapOpen(location);
         });
 

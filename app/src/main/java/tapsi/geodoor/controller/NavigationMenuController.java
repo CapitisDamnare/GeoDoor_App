@@ -48,22 +48,22 @@ public class NavigationMenuController {
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.settings))) {
+                            mainActivity.TabToSettings();
                             return true;
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.about))) {
+                            mainActivity.startAboutActivity();
                             return true;
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.hide))) {
-                            hideApplication();
+                            mainActivity.moveTaskToBack(false);
                             return true;
                         }
 
                         if (title.equals(mainActivity.getResources().getString(R.string.exit))) {
-                            closeApplication();
-
-                            // TODO Stop other Service as well
+                            mainActivity.stopApplication();
                             return true;
                         }
                         return true;
@@ -102,13 +102,5 @@ public class NavigationMenuController {
         s_itemExit.setSpan(new TextAppearanceSpan(mainActivity, R.style.TextAppearanceItemWhite),
                 0, s_itemExit.length(), 0);
         itemExit.setTitle(s_itemExit);
-    }
-
-    private void closeApplication() {
-        mainActivity.stopApplication();
-    }
-
-    private void hideApplication() {
-        mainActivity.moveTaskToBack(false);
     }
 }

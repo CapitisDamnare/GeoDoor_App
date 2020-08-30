@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements
      * Initializes the {@see TabLayout} with the {@see PagerAdapter}.
      */
     private void setupTabLayout() {
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabs = findViewById(R.id.tabLayout);
@@ -473,6 +473,14 @@ public class MainActivity extends AppCompatActivity implements
                 // Do nothing
             }
         }
+    }
+
+    public void TabToSettings() {
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setCurrentItem(2);
+    }
+
+    public void startAboutActivity() {
     }
 
     public void stopApplication() {

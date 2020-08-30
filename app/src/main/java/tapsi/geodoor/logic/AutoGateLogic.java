@@ -107,15 +107,15 @@ public class AutoGateLogic {
         }
 
         float distance = location.distanceTo(homeLocation);
-        if (distance < 50)
+        if (distance < 250)
             currentUpdateInterval =  3000;
-        else if (distance < 100)
+        else if (distance < 300)
             currentUpdateInterval =  5000;
-        else if (distance < 200)
-            currentUpdateInterval =  10000;
         else if (distance < 500)
+            currentUpdateInterval =  10000;
+        else if (distance < 700)
             currentUpdateInterval =  20000;
-        else if (distance < 1000)
+        else if (distance < 1200)
             currentUpdateInterval =  25000;
         else
             currentUpdateInterval = 30000;

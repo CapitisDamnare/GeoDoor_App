@@ -10,7 +10,7 @@ The [<b>GeoDoor Server</b>](https://github.com/JustForFunDeveloper/GeoDoorServer
 [![](https://img.shields.io/badge/room-2.2.5-blue.svg)](https://developer.android.com/topic/libraries/architecture/room?gclid=Cj0KCQjwv7L6BRDxARIsAGj-34qXseHYVaOpwUCqOsgGlo3LcANq5O0cnykez6R2XHYHOw4Nc9AeC1gaAjjVEALw_wcB&gclsrc=aw.ds) <br/>
 [![](https://img.shields.io/badge/google_location-17.0.0-red.svg)](https://developers.google.com/android/guides/setup) <br/>
 [![](https://img.shields.io/badge/retrofit2-2.9.0-red.svg)](https://square.github.io/retrofit/) <br/>
-[![](https://img.shields.io/badge/auto-value-1.7.4-green.svg)](https://github.com/google/auto) <br/>
+[![](https://img.shields.io/badge/auto_value-1.7.4-green.svg)](https://github.com/google/auto) <br/>
 
 ## Issues
 [![](https://img.shields.io/github/issues-raw/JustForFunDeveloper/GeoDoor_App.svg?style=flat-square)](https://github.com/JustForFunDeveloper/GeoDoor_App/issues)
@@ -26,7 +26,7 @@ Or in the Google App Store =>
 
 ## Pictures
 
-![](https://github.com/JustForFunDeveloper/GeoDoor_App/Pictures/Funktionsgrafik.png) <br/>
+![](https://github.com/JustForFunDeveloper/GeoDoor_App/blob/master/Pictures/Funktionsgrafik.png) <br/>
 
 - - - -
 ## Short description of the used libraries and techniques
